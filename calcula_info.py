@@ -1,4 +1,4 @@
-from utils import obtemValores
+from utils import obtemValor
 
 
 operadores = ["+", "-", "*", "/", "(", ")"]
@@ -9,7 +9,7 @@ def calculaInfoTrimestre(expressao: list[str], trimestre: str) -> int | float:
     for i in range(len(expressao)):
         argumento = expressao[i]
         if argumento not in operadores and not argumento.isnumeric():
-            expressao_substituida += str(obtemValores(argumento, trimestre))
+            expressao_substituida += str(obtemValor(argumento, trimestre))
         else:
             expressao_substituida += argumento
 

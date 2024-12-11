@@ -12,3 +12,5 @@ def criaGraficos(expressao: str, trimestres: list[str]) -> None:
     plt.grid()
 
     plt.show()
+
+criaGraficos("vendas:prod1",["Report1"])
