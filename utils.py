@@ -11,7 +11,6 @@ def loadRelatorio(fileName: str):
     Retorna as duas folhas de excel do relatorio
     '''
     if not fileName in loadedRelatorios:
-        print("load ",fileName)
         wb = load_workbook(f"{relatorios}{fileName}.xlsx")
         sheet1 = wb["Excel_1"]
         sheet2 = wb["Excel_2"]
