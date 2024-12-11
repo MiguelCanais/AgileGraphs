@@ -1,11 +1,35 @@
+import os
 from openpyxl import load_workbook
 from dados_celulas import obtemDadosRelatorio 
+
+relatorios = "./relatorios/"
+
+loadedRelatorios = {}
+
+def loadRelatorio(fileName: str):
+    '''
+    Retorna as duas folhas de excel do relatorio
+    '''
+    if not fileName in loadedRelatorios:
+        print("load ",fileName)
+        wb = load_workbook(f"{relatorios}{fileName}.xlsx")
+        sheet1 = wb["Excel_1"]
+        sheet2 = wb["Excel_2"]
+        
+        dados = obtemDadosRelatorio(sheet1,sheet2)
+        loadedRelatorios[fileName] = dados 
+
+        return dados
+    else:
+        print("loaded ",fileName)
+        return loadedRelatorios[fileName]
+
 
 def calculaValor(tipo,dados):
     total = 0
 
     # Calcula Total
-    if tipo == "total":
+    if tipo == "TOTAL":
         for k,val in dados.items():
             if isinstance(val,dict):
                 total += calculaValor(k,dados)
@@ -26,11 +50,6 @@ def calculaValor(tipo,dados):
 
     return total
 
-def loadSheet(fileName):
-    wb = load_workbook(f"./relatorios/{fileName}.xlsx")
-    sheet = wb["Excel_1"]
-    return sheet
-
 
 def obtemValor(tipo: str, nomeRelatorio: str) -> int|float:
     '''
@@ -40,25 +59,39 @@ def obtemValor(tipo: str, nomeRelatorio: str) -> int|float:
         "vendas:ue" - 
         "vendas:prod1:ue"
     '''
-    sheet = loadSheet(nomeRelatorio)
-    dados = obtemDadosRelatorio(sheet)
+    dados = loadRelatorio(nomeRelatorio)
 
-    l = tipo.split(':')
-    s = l[0]
+    filtros = tipo.split(':')
 
-    valores = dados[s]
+    valoresCategoria = dados[filtros[0]]
 
-    if len(l) == 1:
-        return calculaValor("total",valores)
-    elif len(l) == 2:
-        s1 = l[1]
-        return calculaValor(s1,valores)
+    if len(filtros) == 1:
+        return calculaValor("TOTAL",valoresCategoria)
+    elif len(filtros) == 2:
+        s1 = filtros[1]
+        return calculaValor(s1,valoresCategoria)
     else:
-        s1 = l[1]
-        s2 = l[2]
-        return valores[s1][s2]
+        s1 = filtros[1]
+        s2 = filtros[2]
+        return valoresCategoria[s1][s2]
     
 
+def obtemListaTrimestres() -> list[str]:
+    '''
+    Obtem uma lista com os nomes de todos os relatorios de cada
+    trimestre de forma ordenada
+    '''
+    listaTrimestres = [file.removesuffix(".xlsx") \
+            for file in os.listdir(relatorios) if file.endswith(".xlsx")]
+
+    return sorted(listaTrimestres)
+        
+
+def obtemUltimoTrimestre() -> str: 
+    '''
+    Obtem o nome do relatorio do ultimo trimestre
+    '''
+    return obtemListaTrimestres()[-1]
 
 
     
