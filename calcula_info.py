@@ -5,12 +5,15 @@ operadores = ["+", "-", "*", "/", "(", ")"]
 
 
 def calculaInfoTrimestre(expressao: list[str], trimestre: str) -> int | float:
+    expressao_substituida = ""
     for i in range(len(expressao)):
         argumento = expressao[i]
         if argumento not in operadores and not argumento.isnumeric():
-            argumento = str(obtemValores(argumento, trimestre))
+            expressao_substituida += str(obtemValores(argumento, trimestre))
+        else:
+            expressao_substituida += argumento
 
-    return eval("".join(expressao))
+    return eval(expressao_substituida)
 
 
 def calculaInfo(expressao_raw: str, trimestres: list[str]) -> list[int | float]:
