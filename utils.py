@@ -11,9 +11,8 @@ def calculaValor(tipo,dados):
                 total += calculaValor(k,dados)
             else:
                 total += val
-
     # Calcula Produto
-    elif tipo.startswith("prod"):
+    elif tipo in dados:
         if isinstance(dados[tipo],dict):
             for vendasMercado in dados[tipo].values():
                 total += vendasMercado
@@ -52,7 +51,8 @@ def obtemValor(tipo: str, nomeRelatorio: str) -> int|float:
     if len(l) == 1:
         return calculaValor("total",valores)
     elif len(l) == 2:
-        return calculaValor("")
+        s1 = l[1]
+        return calculaValor(s1,valores)
     else:
         s1 = l[1]
         s2 = l[2]
