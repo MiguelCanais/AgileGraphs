@@ -1,8 +1,14 @@
-from dados_celulas import DadosProduto
-from utils import *
+from calcula_info import calculaInfo
+import matplotlib.pyplot as plt
 
-dados = DadosProduto("Report1")
 
-print(calculaValor("produto1-ue",dados.vendas))
-calulcaDiferenca("produto1-ue-vendas","produto1-")
-calulcaTaxa("produto1-ue-vendas","produto1-")
+
+def criaGraficos(expressao: str, trimestres: list[str]) -> None:
+    info = calculaInfo(expressao, trimestres)
+
+    plt.plot(trimestres, info, marker='o')
+    plt.title(expressao)
+    plt.xlabel("trimestres")
+    plt.grid()
+
+    plt.show()
