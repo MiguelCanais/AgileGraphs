@@ -1,6 +1,5 @@
 import os
 
-
 relatorios = "./relatorios/"
 
 
@@ -24,3 +23,13 @@ def obtemUltimosTrimestres(n: int = 1) -> list[str]:
     trimestre
     """
     return obtemTrimestres()[-n:]
+
+
+def expressaoValida(s: str) -> bool:
+    '''
+    Verifica que uma string eh uma expressao valida
+    '''
+    if not isinstance(s,str): return False
+
+    return True
+

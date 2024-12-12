@@ -27,6 +27,7 @@ def configuraGrafico(maximo, minimo) -> None:
 
 
 def criaGraficos(expressoes: list[str] | str, trimestres: list[str], title: str = "Grafico") -> None:
+    plt.close()
     if type(expressoes) is str:
         expressoes = [expressoes]
 
@@ -42,7 +43,7 @@ def criaGraficos(expressoes: list[str] | str, trimestres: list[str], title: str 
             info,
             label=expressao,
             marker="o",
-            color=lineColors[i % (len(lineColors)-1)],
+            color=lineColors[i % (len(lineColors))],
         )
 
     configuraGrafico(maximo, minimo)
