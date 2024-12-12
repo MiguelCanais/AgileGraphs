@@ -22,8 +22,7 @@ def criaGraficosPrompt():
     listaTrimestres = obtemTrimestres()
 
     while True:
-        print()
-        print("Insira expressões para gráficos (q para parar):")
+        print("\nInsira expressões para gráficos (q para parar):")
         expressoes = []
 
         while True:
@@ -75,11 +74,10 @@ def mostraValoresPrompt():
 
 
 def calculaValoresPrompt():
-    print()
     ans = 0
     ultimoTrimestre = obtemUltimosTrimestres(1)[0]
 
-    print("Insira expressão para calcular (q para sair):")
+    print("\nInsira expressão para calcular (q para sair):")
     while True:
         userInput = obtemInput("> ", [])
         if userInput == "q":
@@ -107,15 +105,15 @@ opcoes = {
 
 
 def prompt():
-    os.system("clear")
-    print("\n------ AgileGraphs ------\n")
-    print("Escolha uma opção:")
+    while True:
+        os.system("clear")
+        print("\n------ AgileGraphs ------\n")
+        print("Escolha uma opção:")
 
-    for key, opcao in opcoes.items():
-        print(f"[{key}] - {opcao["nome"]}")
+        for key, opcao in opcoes.items():
+            print(f"[{key}] - {opcao["nome"]}")
 
-    print()
+        print()
 
-    userInput = obtemInput("", opcoes)
-    opcoes[userInput]["funcao"]()
-    prompt()
+        userInput = obtemInput("", opcoes)
+        opcoes[userInput]["funcao"]()
