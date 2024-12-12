@@ -1,8 +1,10 @@
 from utils import obtemValor
 
-
 operadores = ["+", "-", "*", "/", "(", ")"]
 
+aliases = {
+    "dr": "demonstracaoResultados",
+}
 
 def calculaExpressao(expressao: list[str], trimestre: str) -> int | float:
     expressao_substituida = ""

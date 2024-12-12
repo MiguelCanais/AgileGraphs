@@ -17,6 +17,7 @@ pip install openpyxl matplotlib
     vendas:prod1
     :~2:vendas:prod1
 - documentação
+- adicionar aliases às expressoes
 
 ## Documentação
 

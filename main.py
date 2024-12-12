@@ -1,4 +1,6 @@
 from utils import *
-from cria_graficos import *
+from graficos import *
+from cli import prompt
 
-criaGrafico("demonstracaoResultados:lucro",obtemTrimestres())
+prompt()
+
