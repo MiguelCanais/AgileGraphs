@@ -1,9 +1,10 @@
 from interpreta_expressao import interpretaExpressao
 import matplotlib.pyplot as plt
 
-lineColors = ["blue","green","red","orange"]
+lineColors = ["blue", "green", "red", "orange"]
 
-def configuraGrafico(maximo,minimo):
+
+def configuraGrafico(maximo, minimo):
     if minimo < 0:
         amplitude = maximo - minimo
         lowerlimit = minimo - amplitude * 0.2
@@ -20,35 +21,32 @@ def configuraGrafico(maximo,minimo):
 
     plt.xlabel("Trimestres")
     plt.legend(loc="lower left", fontsize=10)
-    plt.ylim(bottom=lowerlimit,top=upperlimit)
-    plt.axhline(y=0, color="red", linewidth=1, linestyle='--', label='y=0 line')
+    plt.ylim(bottom=lowerlimit, top=upperlimit)
+    plt.axhline(y=0, color="red", linewidth=1, linestyle="--", label="y=0 line")
     plt.grid()
 
 
-def criaGrafico(expressao: str, trimestres: list[str], title: str="Grafico"):
-    info = interpretaExpressao(expressao, trimestres)
-    plt.plot(trimestres, info, label=expressao, marker='o')
+def criaGraficos(expressoes: list[str] | str, trimestres: list[str], title: str = "Grafico"):
+    if type(expressoes) is str:
+        expressoes = [expressoes]
 
-    plt.title(expressao)
-    configuraGrafico(max(info),min(info))
-
-    plt.savefig("grafico.png")
-    plt.show()
-
-
-def criaGraficos(expressoes: list[str], trimestres: list[str], title: str="Grafico"):
-    maximo = -10**100
+    maximo = -(10**100)
     minimo = 10**100
 
-    for i,expressao in enumerate(expressoes):
+    for i, expressao in enumerate(expressoes):
         info = interpretaExpressao(expressao, trimestres)
         maximo = max(max(info), maximo)
         minimo = min(min(info), minimo)
-        plt.plot(trimestres, info, label=expressao, marker='o',color=lineColors[i%len(lineColors)])
+        plt.plot(
+            trimestres,
+            info,
+            label=expressao,
+            marker="o",
+            color=lineColors[i % (len(lineColors)-1)],
+        )
+
+    configuraGrafico(maximo, minimo)
 
     plt.title(title)
-    configuraGrafico(maximo,minimo)
-
-    plt.savefig("grafico.png")
+    plt.savefig(title + ".png")
     plt.show()
-
