@@ -20,29 +20,24 @@ def loadRelatorio(fileName: str):
 
         return dados
     else:
-        print("loaded ",fileName)
         return loadedRelatorios[fileName]
 
 
 def calculaValor(tipo,dados):
     total = 0
 
-    # Calcula Total
     if tipo == "TOTAL":
         for k,val in dados.items():
             if isinstance(val,dict):
                 total += calculaValor(k,dados)
             else:
                 total += val
-    # Calcula Produto
     elif tipo in dados:
         if isinstance(dados[tipo],dict):
             for vendasMercado in dados[tipo].values():
                 total += vendasMercado
         else:
             total += dados[tipo]
-    
-    # Calcula Mercado
     else:
         for produto in dados.values():
             total += produto[tipo]
@@ -75,7 +70,7 @@ def obtemValor(tipo: str, nomeRelatorio: str) -> int|float:
         return valoresCategoria[s1][s2]
     
 
-def obtemListaTrimestres() -> list[str]:
+def obtemTrimestres() -> list[str]:
     '''
     Obtem uma lista com os nomes de todos os relatorios de cada
     trimestre de forma ordenada
@@ -86,12 +81,12 @@ def obtemListaTrimestres() -> list[str]:
     return sorted(listaTrimestres)
         
 
-def obtemUltimoTrimestre() -> str: 
+def obtemUltimosTrimestres(n: int = 1) -> list[str]: 
     '''
-    Obtem o nome do relatorio do ultimo trimestre
+    Obtem uma lista com  os nomes dos ultimos N relatorios de cada
+    trimestre
     '''
-    return obtemListaTrimestres()[-1]
-
+    return obtemTrimestres()[-n:]
 
     
 

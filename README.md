@@ -1,6 +1,10 @@
 # AgileGraphs
-Ánalise de dados para o Jogo de Gestão IST Management Challenge
+Programa de análise de dados para o Jogo de Gestão IST Management Challenge.
 
+## Dependencias
+```sh
+pip install openpyxl matplotlib
+```
 
 ## Feito
 - renomear relatórios para números 

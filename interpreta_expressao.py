@@ -4,7 +4,7 @@ from utils import obtemValor
 operadores = ["+", "-", "*", "/", "(", ")"]
 
 
-def calculaInfoTrimestre(expressao: list[str], trimestre: str) -> int | float:
+def calculaExpressao(expressao: list[str], trimestre: str) -> int | float:
     expressao_substituida = ""
     for i in range(len(expressao)):
         argumento = expressao[i]
@@ -16,7 +16,7 @@ def calculaInfoTrimestre(expressao: list[str], trimestre: str) -> int | float:
     return eval(expressao_substituida)
 
 
-def calculaInfo(expressao_raw: str, trimestres: list[str]) -> list[int | float]:
+def interpretaExpressao(expressao_raw: str, trimestres: list[str]) -> list[int | float]:
     expressao = [expressao_raw.replace(" ", "")]
     for operador in operadores:
         new_expressao = []
@@ -34,4 +34,4 @@ def calculaInfo(expressao_raw: str, trimestres: list[str]) -> list[int | float]:
 
         expressao = new_expressao
 
-    return [calculaInfoTrimestre(expressao, trimestre) for trimestre in trimestres]
+    return [calculaExpressao(expressao, trimestre) for trimestre in trimestres]
