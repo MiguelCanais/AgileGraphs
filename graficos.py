@@ -1,4 +1,4 @@
-from interpreta_expressao import interpretaExpressao
+from interpreta_expressao import calculaInfo
 import matplotlib.pyplot as plt
 
 lineColors = ["blue", "green", "red", "orange"]
@@ -34,7 +34,7 @@ def criaGraficos(expressoes: list[str] | str, trimestres: list[str], title: str 
     minimo = 10**100
 
     for i, expressao in enumerate(expressoes):
-        info = interpretaExpressao(expressao, trimestres)
+        info = calculaInfo(expressao, trimestres)
         maximo = max(max(info), maximo)
         minimo = min(min(info), minimo)
         plt.plot(

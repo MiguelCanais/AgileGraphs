@@ -6,6 +6,7 @@ aliases = {
     "dr": "demonstracaoResultados",
 }
 
+
 def calculaExpressao(expressao: list[str], trimestre: str) -> int | float:
     expressao_substituida = ""
     for i in range(len(expressao)):
@@ -18,7 +19,7 @@ def calculaExpressao(expressao: list[str], trimestre: str) -> int | float:
     return eval(expressao_substituida)
 
 
-def interpretaExpressao(expressao_raw: str, trimestres: list[str]) -> list[int | float]:
+def parseExpressao(expressao_raw: str) -> list[str]:
     expressao = [expressao_raw.replace(" ", "")]
     for operador in operadores:
         new_expressao = []
@@ -36,4 +37,20 @@ def interpretaExpressao(expressao_raw: str, trimestres: list[str]) -> list[int |
 
         expressao = new_expressao
 
+    return expressao
+
+
+def traduzExpressao(expressao: list[str]):  # aliases
+    for i in range(len(expressao)):
+        novo_argumento = ""
+        for campo in expressao[i].split(':'):
+            novo_argumento += aliases.get(campo, campo) + ':'
+
+        novo_argumento = novo_argumento[:-1]
+        expressao[i] = novo_argumento
+
+
+def calculaInfo(expressao_raw: str, trimestres: list[str]) -> list[int | float]:
+    expressao = parseExpressao(expressao_raw)
+    traduzExpressao(expressao)
     return [calculaExpressao(expressao, trimestre) for trimestre in trimestres]
