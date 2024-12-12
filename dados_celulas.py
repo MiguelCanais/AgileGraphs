@@ -279,5 +279,138 @@ dados_relatorio = {
         "capitalSocial": ("sheet2","R26"),
         "resultadosTransitados": ("sheet2","R27"),
         "capitaisProprios": ("sheet2","R28"),
-    }
+    },
+
+    "acoes": {
+        "empresa1": ("sheet2","D32"),
+        "empresa2": ("sheet2","E32"),
+        "empresa3": ("sheet2","F32"),
+        "empresa4": ("sheet2","G32"),
+        "empresa5": ("sheet2","H32"),
+        "empresa6": ("sheet2","I32"),
+        "empresa7": ("sheet2","J32"),
+    },
+
+    "quotasMercado": {
+        "empresa1": {
+            "prod1": {
+                "ue": ("sheet2", "Q32"),
+                "nafta": ("sheet2", "Q33"),
+                "internet": ("sheet2", "Q34"),
+            },
+            "prod2": {
+                "ue": ("sheet2", "Q35"),
+                "nafta": ("sheet2", "Q36"),
+                "internet": ("sheet2", "Q37"),
+            },
+            "prod3": {
+                "ue": ("sheet2", "Q38"),
+                "nafta": ("sheet2", "Q39"),
+                "internet": ("sheet2", "Q40"),
+            },
+        },
+        "empresa2": {
+            "prod1": {
+                "ue": ("sheet2", "R32"),
+                "nafta": ("sheet2", "R33"),
+                "internet": ("sheet2", "R34"),
+            },
+            "prod2": {
+                "ue": ("sheet2", "R35"),
+                "nafta": ("sheet2", "R36"),
+                "internet": ("sheet2", "R37"),
+            },
+            "prod3": {
+                "ue": ("sheet2", "R38"),
+                "nafta": ("sheet2", "R39"),
+                "internet": ("sheet2", "R40"),
+            },
+        },
+        "empresa3": {
+            "prod1": {
+                "ue": ("sheet2", "S32"),
+                "nafta": ("sheet2", "S33"),
+                "internet": ("sheet2", "S34"),
+            },
+            "prod2": {
+                "ue": ("sheet2", "S35"),
+                "nafta": ("sheet2", "S36"),
+                "internet": ("sheet2", "S37"),
+            },
+            "prod3": {
+                "ue": ("sheet2", "S38"),
+                "nafta": ("sheet2", "S39"),
+                "internet": ("sheet2", "S40"),
+            },
+        },
+        "empresa4": {
+            "prod1": {
+                "ue": ("sheet2", "T32"),
+                "nafta": ("sheet2", "T33"),
+                "internet": ("sheet2", "T34"),
+            },
+            "prod2": {
+                "ue": ("sheet2", "T35"),
+                "nafta": ("sheet2", "T36"),
+                "internet": ("sheet2", "T37"),
+            },
+            "prod3": {
+                "ue": ("sheet2", "T38"),
+                "nafta": ("sheet2", "T39"),
+                "internet": ("sheet2", "T40"),
+            },
+        },
+        "empresa5": {
+            "prod1": {
+                "ue": ("sheet2", "U32"),
+                "nafta": ("sheet2", "U33"),
+                "internet": ("sheet2", "U34"),
+            },
+            "prod2": {
+                "ue": ("sheet2", "U35"),
+                "nafta": ("sheet2", "U36"),
+                "internet": ("sheet2", "U37"),
+            },
+            "prod3": {
+                "ue": ("sheet2", "U38"),
+                "nafta": ("sheet2", "U39"),
+                "internet": ("sheet2", "U40"),
+            },
+        },
+        "empresa6": {
+            "prod1": {
+                "ue": ("sheet2", "V32"),
+                "nafta": ("sheet2", "V33"),
+                "internet": ("sheet2", "V34"),
+            },
+            "prod2": {
+                "ue": ("sheet2", "V35"),
+                "nafta": ("sheet2", "V36"),
+                "internet": ("sheet2", "V37"),
+            },
+            "prod3": {
+                "ue": ("sheet2", "V38"),
+                "nafta": ("sheet2", "V39"),
+                "internet": ("sheet2", "V40"),
+            },
+        },
+        "empresa7": {
+            "prod1": {
+                "ue": ("sheet2", "W32"),
+                "nafta": ("sheet2", "W33"),
+                "internet": ("sheet2", "W34"),
+            },
+            "prod2": {
+                "ue": ("sheet2", "W35"),
+                "nafta": ("sheet2", "W36"),
+                "internet": ("sheet2", "W37"),
+            },
+            "prod3": {
+                "ue": ("sheet2", "W38"),
+                "nafta": ("sheet2", "W39"),
+                "internet": ("sheet2", "W40"),
+            },
+        },
+    },
+
 }

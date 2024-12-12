@@ -1,7 +1,7 @@
 from calcula_info import calculaInfo
 import matplotlib.pyplot as plt
 
-lineColors = ["blue", "green", "red", "orange"]
+lineColors = ["blue", "red", "green", "orange","purple","cyan","black"]
 
 
 def configuraGrafico(maximo, minimo) -> None:

@@ -1,7 +1,7 @@
 import os
 from utils import obtemTrimestres, obtemUltimosTrimestres
 from graficos import criaGraficos
-from calcula_info import parseExpressao, calculaExpressao, traduzExpressao, ehExpressaoValida
+from calcula_info import parseExpressao, calculaExpressao, traduzExpressao, ehExpressaoValida, expandeExpressao
 
 
 def obtemInput(promptText, inputValido: list[str] = []) -> str:
@@ -40,6 +40,12 @@ def criaGraficosPrompt():
 
         if len(expressoes) == 0:
             return
+
+        for expressao in expressoes:
+            if "ALL" in expressao:
+                expressoes.remove(expressao)
+                expressoes += expandeExpressao(expressao)
+        
         criaGraficos(expressoes, listaTrimestres)
 
 

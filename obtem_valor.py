@@ -1,13 +1,13 @@
 from openpyxl import load_workbook
 from dados_celulas import dados_relatorio
 
-relatorios_dir = "./relatorios/"
+relatoriosDirectory = "./relatorios/"
 relatorios = {}
 
 
 def loadRelatorio(nomeRelatorio: str) -> None:
     global relatorios
-    wb = load_workbook(relatorios_dir + nomeRelatorio + ".xlsx")
+    wb = load_workbook(relatoriosDirectory + nomeRelatorio + ".xlsx")
     relatorios[nomeRelatorio] = {
         "sheet1": wb["Excel_1"],
         "sheet2": wb["Excel_2"],
@@ -54,3 +54,5 @@ def obtemValor(tipo: str, relatorio: str) -> int | float:
 
     chaves = tipo.split(':')
     return obtemValorAux(chaves, relatorio)
+
+
