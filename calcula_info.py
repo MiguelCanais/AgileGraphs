@@ -28,8 +28,6 @@ def parseExpressao(expressao_raw: str) -> list[str]:
 
             argumento_processado = []
             for j in argumento_splited:
-                if j == '':
-                    continue
                 argumento_processado += [j, operador]
             argumento_processado = argumento_processado[:-1]
 
@@ -37,6 +35,7 @@ def parseExpressao(expressao_raw: str) -> list[str]:
 
         expressao = new_expressao
 
+    expressao = list(filter(lambda s: s != '', expressao))
     return expressao
 
 
