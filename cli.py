@@ -94,6 +94,7 @@ def mostraValoresPrompt():
 
 def calculaValoresPrompt():
     print()
+    ans = 0
     ultimoTrimestre = obtemUltimosTrimestres(1)[0]
 
     print("Insira expressão para calcular (q para sair):")
@@ -107,9 +108,12 @@ def calculaValoresPrompt():
             print("Expressão Inválida")
             continue
 
+        userInput = userInput.replace("ans",str(ans))
         expressao = parseExpressao(userInput)
         traduzExpressao(expressao)
-        print(calculaExpressao(expressao, ultimoTrimestre))
+        ans = calculaExpressao(expressao,ultimoTrimestre)
+
+        print(ans)
         print()
 
 opcoes = {
