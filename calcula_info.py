@@ -11,7 +11,7 @@ def calculaExpressao(expressao: list[str], trimestre: str) -> int | float:
     expressao_substituida = ""
     for i in range(len(expressao)):
         argumento = expressao[i]
-        if argumento not in operadores and not argumento.isnumeric():
+        if argumento not in operadores and not all(s.isnumeric() for s in argumento.split('.')):
             expressao_substituida += str(obtemValor(argumento, trimestre))
         else:
             expressao_substituida += argumento
