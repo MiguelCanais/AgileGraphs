@@ -258,4 +258,26 @@ dados_relatorio = {
         "impostos": ("sheet2", "J23"),
         "lucro": ("sheet2", "J25"),
     },
+
+    "balanco": {
+        "ativoFixoTangivel": ("sheet2","Q6"),
+        "maquinas": ("sheet2","Q7"),
+        "ativoNaoCorrente": ("sheet2","R8"),
+        "inventarioProdutos": ("sheet2","R9"),
+        "inventarioMaterias": ("sheet2","R10"),
+        "clientes": ("sheet2","R11"),
+        "depositosBancarios": ("sheet2","R12"),
+        "outrosAtivos": ("sheet2","R13"),
+        "totalAtivo": ("sheet2","R14"),
+        "estado": ("sheet2","R17"),
+        "fornecedores": ("sheet2","R18"),
+        "financiamentos": ("sheet2","R19"),
+        "emprestimosSemGarantia": ("sheet2","R20"),
+        "passivoCorrente": ("sheet2","R21"),
+        "emprestimosMedioPrazo": ("sheet2","R22"),
+        "capitalProprioPassivo": ("sheet2","R23"),
+        "capitalSocial": ("sheet2","R26"),
+        "resultadosTransitados": ("sheet2","R27"),
+        "capitaisProprios": ("sheet2","R28"),
+    }
 }
