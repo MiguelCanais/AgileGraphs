@@ -1,51 +1,44 @@
 from openpyxl import load_workbook
-from dados_celulas import obtemDadosRelatorio
+from dados_celulas import dados_relatorio
 
-relatorios = "./relatorios/"
-
-loadedRelatorios = {}
-
-
-def loadRelatorio(fileName: str):
-    """
-    Retorna as duas folhas de excel do relatorio
-    """
-    if fileName not in loadedRelatorios:
-        wb = load_workbook(f"{relatorios}{fileName}.xlsx")
-        sheet1 = wb["Excel_1"]
-        sheet2 = wb["Excel_2"]
-
-        dados = obtemDadosRelatorio(sheet1, sheet2)
-        loadedRelatorios[fileName] = dados
-
-        return dados
-    else:
-        return loadedRelatorios[fileName]
+relatorios_dir = "./relatorios/"
+relatorios = {}
 
 
-def calculaValor(tipo, dados):
-    total = 0
+def loadRelatorio(nomeRelatorio: str) -> None:
+    global relatorios
+    wb = load_workbook(relatorios_dir + nomeRelatorio + ".xlsx")
+    relatorios[nomeRelatorio] = {
+        "sheet1": wb["Excel_1"],
+        "sheet2": wb["Excel_2"],
+    }
 
-    if tipo == "TOTAL":
-        for k, val in dados.items():
-            if isinstance(val, dict):
-                total += calculaValor(k, dados)
-            else:
-                total += val
-    elif tipo in dados:
-        if isinstance(dados[tipo], dict):
-            for vendasMercado in dados[tipo].values():
-                total += vendasMercado
+
+def obtemValorEspecifico(chaves: list[str]) -> tuple:
+    valor = dados_relatorio
+    failure_index = 0
+    for chave in chaves:
+        if chave in valor:
+            valor = valor[chave]
+            failure_index += 1
         else:
-            total += dados[tipo]
+            break
+
+    return valor, failure_index
+
+
+def obtemValorAux(chaves: list[str], relatorio: str):
+    valor, failure_index = obtemValorEspecifico(chaves)
+
+    if type(valor) is tuple:
+        sheet, celula = valor
+        return relatorios[relatorio][sheet][celula].value
     else:
-        for produto in dados.values():
-            total += produto[tipo]
-
-    return total
+        return sum(obtemValorAux(chaves[:failure_index] + [chave] + chaves[failure_index:], relatorio) for chave in valor)
 
 
-def obtemValor(tipo: str, nomeRelatorio: str) -> int | float:
+
+def obtemValor(tipo: str, relatorio: str) -> int | float:
     """
     Exemplos de tipo:
         "vendas" - Calcula o valor de todas as vendas
@@ -53,18 +46,8 @@ def obtemValor(tipo: str, nomeRelatorio: str) -> int | float:
         "vendas:ue" -
         "vendas:prod1:ue"
     """
-    dados = loadRelatorio(nomeRelatorio)
+    if relatorio not in relatorios:
+        loadRelatorio(relatorio)
 
-    filtros = tipo.split(":")
-
-    valoresCategoria = dados[filtros[0]]
-
-    if len(filtros) == 1:
-        return calculaValor("TOTAL", valoresCategoria)
-    elif len(filtros) == 2:
-        s1 = filtros[1]
-        return calculaValor(s1, valoresCategoria)
-    else:
-        s1 = filtros[1]
-        s2 = filtros[2]
-        return valoresCategoria[s1][s2]
+    chaves = tipo.split(':')
+    return obtemValorAux(chaves, relatorio)

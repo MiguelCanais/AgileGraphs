@@ -19,6 +19,7 @@ pip install openpyxl matplotlib
 - aceder a valores de outros trimestres
     vendas:prod1
     :~2:vendas:prod1
+- acesso direto a celúlas
 - documentação
 
 
