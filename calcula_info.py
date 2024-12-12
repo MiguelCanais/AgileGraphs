@@ -1,4 +1,4 @@
-from utils import obtemValor
+from obtem_valor import obtemValor
 
 operadores = ["+", "-", "*", "/", "(", ")"]
 
