@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 lineColors = ["blue", "green", "red", "orange"]
 
 
-def configuraGrafico(maximo, minimo):
+def configuraGrafico(maximo, minimo) -> None:
     if minimo < 0:
         amplitude = maximo - minimo
         lowerlimit = minimo - amplitude * 0.2
@@ -26,7 +26,7 @@ def configuraGrafico(maximo, minimo):
     plt.grid()
 
 
-def criaGraficos(expressoes: list[str] | str, trimestres: list[str], title: str = "Grafico"):
+def criaGraficos(expressoes: list[str] | str, trimestres: list[str], title: str = "Grafico") -> None:
     if type(expressoes) is str:
         expressoes = [expressoes]
 

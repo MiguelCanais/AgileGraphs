@@ -14,7 +14,7 @@ def loadRelatorio(nomeRelatorio: str) -> None:
     }
 
 
-def obtemValorEspecifico(chaves: list[str]) -> tuple:
+def obtemValorEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
     valor = dados_relatorio
     failure_index = 0
     for chave in chaves:
@@ -27,7 +27,7 @@ def obtemValorEspecifico(chaves: list[str]) -> tuple:
     return valor, failure_index
 
 
-def obtemValorAux(chaves: list[str], relatorio: str):
+def obtemValorAux(chaves: list[str], relatorio: str) -> int | float:
     valor, failure_index = obtemValorEspecifico(chaves)
 
     if type(valor) is tuple:

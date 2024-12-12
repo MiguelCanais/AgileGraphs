@@ -40,7 +40,7 @@ def parseExpressao(expressao_raw: str) -> list[str]:
     return expressao
 
 
-def traduzExpressao(expressao: list[str]):  # aliases
+def traduzExpressao(expressao: list[str]) -> None:  # aliases
     for i in range(len(expressao)):
         novo_argumento = ""
         for campo in expressao[i].split(':'):
