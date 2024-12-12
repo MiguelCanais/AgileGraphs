@@ -1,6 +1,7 @@
 # AgileGraphs
 Programa de análise de dados para o Jogo de Gestão IST Management Challenge.
 
+
 ## Dependencias
 ```sh
 pip install openpyxl matplotlib
@@ -10,6 +11,8 @@ pip install openpyxl matplotlib
 - renomear relatórios para números 
 - multiplas linhas no mesmo gráfico
 - implementar segunda folha
+- adicionar aliases às expressoes
+
 
 ## TODO
 - interface CLI
@@ -17,7 +20,7 @@ pip install openpyxl matplotlib
     vendas:prod1
     :~2:vendas:prod1
 - documentação
-- adicionar aliases às expressoes
+
 
 ## Documentação
 
