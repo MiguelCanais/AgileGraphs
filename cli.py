@@ -1,18 +1,19 @@
 import os
-from utils import obtemTrimestres, obtemUltimosTrimestres, expressaoValida
+from utils import obtemTrimestres, obtemUltimosTrimestres
 from graficos import criaGraficos
-from calcula_info import parseExpressao,calculaExpressao,traduzExpressao
+from calcula_info import parseExpressao, calculaExpressao, traduzExpressao, ehExpressaoValida
 
-def obtemInput(promptText,inputValido: list[str]=[]) -> str:
-    '''
+
+def obtemInput(promptText, inputValido: list[str] = []) -> str:
+    """
     Obtem input do utilizador e verifica que o input é
     uma opcao valida
-    '''
+    """
     while True:
         userInput = input(promptText)
 
-        if len(inputValido) == 0: return userInput
-        if not userInput in inputValido: continue
+        if len(inputValido) != 0 and userInput not in inputValido:
+            continue
 
         return userInput
 
@@ -26,23 +27,25 @@ def criaGraficosPrompt():
         expressoes = []
 
         while True:
-            userInput = obtemInput("> ",[])
-            if userInput == 'q': 
-                if len(expressoes) == 0: return
+            userInput = obtemInput("> ", [])
+            if userInput == "q":
+                if len(expressoes) == 0:
+                    return
                 break
 
-            if not expressaoValida(userInput):
+            if not ehExpressaoValida(userInput):
                 print("Expressão Inválida")
                 continue
 
-            expressoes.append(userInput) 
+            expressoes.append(userInput)
 
-        if len(expressoes) == 0: return
-        criaGraficos(expressoes,listaTrimestres)
-    
+        if len(expressoes) == 0:
+            return
+        criaGraficos(expressoes, listaTrimestres)
 
-def mostraValoresPrompt(): 
-    '''
+
+def mostraValoresPrompt():
+    """
     Calulca expressao:
     > vendas
 
@@ -59,7 +62,7 @@ def mostraValoresPrompt():
     internet x
 
 
-    > vendas:ue 
+    > vendas:ue
 
     Prod1   x
     Prod2   x
@@ -68,7 +71,8 @@ def mostraValoresPrompt():
 
     > vendas:prod1:ue
     x
-    '''
+    """
+
 
 def calculaValoresPrompt():
     print()
@@ -77,17 +81,18 @@ def calculaValoresPrompt():
 
     print("Insira expressão para calcular (q para sair):")
     while True:
-        userInput = obtemInput("> ",[])
-        if userInput == 'q': return
+        userInput = obtemInput("> ", [])
+        if userInput == "q":
+            return
 
-        if not expressaoValida(userInput):
+        if not ehExpressaoValida(userInput):
             print("Expressão Inválida")
             continue
 
-        userInput = userInput.replace("ans",str(ans))
+        userInput = userInput.replace("ans", str(ans))
         expressao = parseExpressao(userInput)
         traduzExpressao(expressao)
-        ans = calculaExpressao(expressao,ultimoTrimestre)
+        ans = calculaExpressao(expressao, ultimoTrimestre)
 
         print(ans)
         print()
@@ -106,13 +111,11 @@ def prompt():
     print("\n------ AgileGraphs ------\n")
     print("Escolha uma opção:")
 
-    for key,opcao in opcoes.items():
+    for key, opcao in opcoes.items():
         print(f"[{key}] - {opcao["nome"]}")
 
     print()
 
-    userInput = obtemInput("",opcoes)
+    userInput = obtemInput("", opcoes)
     opcoes[userInput]["funcao"]()
     prompt()
-
-
