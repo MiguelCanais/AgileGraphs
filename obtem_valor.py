@@ -18,6 +18,10 @@ def obtemValorEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
     valor = dados_relatorio
     failure_index = 0
     for chave in chaves:
+        if type(valor) is tuple:
+            print("variavel errada:", chave)
+            exit()
+
         if chave in valor:
             valor = valor[chave]
             failure_index += 1
