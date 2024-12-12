@@ -1,4 +1,4 @@
-from interpreta_expressao import calculaInfo
+from calcula_info import calculaInfo
 import matplotlib.pyplot as plt
 
 lineColors = ["blue", "green", "red", "orange"]
@@ -46,7 +46,7 @@ def criaGraficos(expressoes: list[str] | str, trimestres: list[str], title: str 
         )
 
     configuraGrafico(maximo, minimo)
-
     plt.title(title)
+
     plt.savefig(title + ".png")
     plt.show()
