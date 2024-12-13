@@ -38,15 +38,33 @@ def criaGraficosPrompt():
 
             expressoes.append(userInput)
 
-        if len(expressoes) == 0:
+        criaGraficos(expressoes, listaTrimestres)
+
+
+def calculaValoresPrompt():
+    ans = 0
+    ultimoTrimestre = obtemUltimosTrimestres(1)[0]
+
+    print("\nInsira expressão para calcular (q para sair):")
+    while True:
+        userInput = obtemInput("> ", [])
+        if userInput == "q":
             return
 
-        for expressao in expressoes:
-            if "ALL" in expressao:
-                expressoes.remove(expressao)
-                expressoes += expandeExpressao(expressao)
-        
-        criaGraficos(expressoes, listaTrimestres)
+        if not ehExpressaoValida(userInput):
+            print("Expressão Inválida")
+            continue
+
+        userInput = userInput.replace("ANS", str(ans))
+        info_graphs = calculaInfo([userInput], [ultimoTrimestre])
+
+        if len(info_graphs) == 1:
+            print(info_graphs[0][1][0])
+        else:
+            for expressao, info in info_graphs:
+                print(f'{expressao}: {info[0]}')
+
+        print()
 
 
 def mostraValoresPrompt():
@@ -93,28 +111,7 @@ def mostraValoresPrompt():
 
 
 
-def calculaValoresPrompt():
-    ans = 0
-    ultimoTrimestre = obtemUltimosTrimestres(1)[0]
-
-    print("\nInsira expressão para calcular (q para sair):")
-    while True:
-        userInput = obtemInput("> ", [])
-        if userInput == "q":
-            return
-
-        if not ehExpressaoValida(userInput) or "ALL" in userInput:
-            print("Expressão Inválida")
-            continue
-
-        userInput = userInput.replace("ans", str(ans))
-        ans = calculaInfo(userInput, [ultimoTrimestre])[0]
-
-        print(ans)
-        print()
-
-
-opcoes = {
+OPCOES = {
     "1": {"nome": "Cria gráficos", "funcao": criaGraficosPrompt},
     "2": {"nome": "Calcula valores", "funcao": calculaValoresPrompt},
     "3": {"nome": "Mostra valores", "funcao": mostraValoresPrompt},
@@ -128,10 +125,10 @@ def prompt():
         print("\n------ AgileGraphs ------\n")
         print("Escolha uma opção:")
 
-        for key, opcao in opcoes.items():
+        for key, opcao in OPCOES.items():
             print(f"[{key}] - {opcao["nome"]}")
 
         print()
 
-        userInput = obtemInput("", opcoes)
-        opcoes[userInput]["funcao"]()
+        userInput = obtemInput("", OPCOES)
+        OPCOES[userInput]["funcao"]()

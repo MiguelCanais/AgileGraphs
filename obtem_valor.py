@@ -1,13 +1,13 @@
 from openpyxl import load_workbook
 from dados_celulas import dados_relatorio
 
-relatoriosDirectory = "./relatorios/"
+RELATORIOS_DIRECTORY = "./relatorios/"
 relatorios = {}
 
 
 def loadRelatorio(nomeRelatorio: str) -> None:
     global relatorios
-    wb = load_workbook(relatoriosDirectory + nomeRelatorio + ".xlsx")
+    wb = load_workbook(RELATORIOS_DIRECTORY + nomeRelatorio + ".xlsx")
     relatorios[nomeRelatorio] = {
         "sheet1": wb["Excel_1"],
         "sheet2": wb["Excel_2"],
@@ -41,7 +41,7 @@ def obtemValorAux(chaves: list[str], relatorio: str) -> int | float:
 
 
 
-def obtemValor(var: str, relatorio: str) -> int | float:
+def obtemValor(variavel: str, relatorio: str) -> int | float:
     """
     Exemplos de tipo:
         "vendas" - Calcula o valor de todas as vendas
@@ -52,5 +52,5 @@ def obtemValor(var: str, relatorio: str) -> int | float:
     if relatorio not in relatorios:
         loadRelatorio(relatorio)
 
-    chaves = var.split(':')
+    chaves = variavel.split(':')
     return obtemValorAux(chaves, relatorio)

@@ -1,6 +1,6 @@
 import os
 
-relatoriosDirectory = "./relatorios/"
+RELTORIOS_DIRECTORY = "./relatorios/"
 
 
 def obtemTrimestres() -> list[str]:
@@ -10,7 +10,7 @@ def obtemTrimestres() -> list[str]:
     """
     listaTrimestres = [
         file.removesuffix(".xlsx")
-        for file in os.listdir(relatoriosDirectory)
+        for file in os.listdir(RELTORIOS_DIRECTORY)
         if file.endswith(".xlsx")
     ]
 

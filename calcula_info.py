@@ -1,9 +1,8 @@
-from obtem_valor import obtemValor
-from dados_celulas import dados_relatorio
+from obtem_valor import obtemValor, obtemValorEspecifico
 
-operadores = ["+", "-", "*", "/", "(", ")"]
+OPERADORES = ["+", "-", "*", "/", "(", ")"]
 
-aliases = {
+ALIASES = {
     "dr": "demonstracaoResultados",
     "hr": "recursosHumanos",
 
@@ -17,34 +16,46 @@ aliases = {
 }
 
 
-def ehVarivel(argumento: str) -> bool:
-    return argumento not in operadores and not all(s.isnumeric() for s in argumento.split('.'))
+def ehVarivel(termo: str) -> bool:
+    return termo not in OPERADORES and not all(s.isnumeric() for s in termo.split('.'))
+
+
+def ehExpressaoValida(expressao_raw: str) -> bool:
+    '''
+    Verifica que uma string eh uma expressao valida
+    '''
+    try:
+        calculaInfo([expressao_raw], ["Relatorio1"])
+    except Exception:
+        return False
+    else:
+        return True
 
 
 def calculaExpressao(expressao: list[str], trimestre: str) -> int | float:
     expressao_substituida = ""
-    for argumento in expressao:
-        if ehVarivel(argumento):
-            expressao_substituida += str(obtemValor(argumento, trimestre))
+    for termo in expressao:
+        if ehVarivel(termo):
+            expressao_substituida += str(obtemValor(termo, trimestre))
         else:
-            expressao_substituida += argumento
+            expressao_substituida += termo
 
     return eval(expressao_substituida)
 
 
 def parseExpressao(expressao_raw: str) -> list[str]:
     expressao = [expressao_raw.replace(" ", "")]
-    for operador in operadores:
+    for operador in OPERADORES:
         new_expressao = []
-        for argumento in expressao:
-            argumento_splited = argumento.split(operador)
+        for termo in expressao:
+            termo_splited = termo.split(operador)
 
-            argumento_processado = []
-            for j in argumento_splited:
-                argumento_processado += [j, operador]
-            argumento_processado = argumento_processado[:-1]
+            termo_processado = []
+            for j in termo_splited:
+                termo_processado += [j, operador]
+            termo_processado = termo_processado[:-1]
 
-            new_expressao += argumento_processado
+            new_expressao += termo_processado
 
         expressao = new_expressao
 
@@ -52,43 +63,44 @@ def parseExpressao(expressao_raw: str) -> list[str]:
     return expressao
 
 
-def ehExpressaoValida(expressao_raw: str) -> bool:
-    '''
-    Verifica que uma string eh uma expressao valida
-    '''
-    expressao = parseExpressao(expressao_raw)
-    expressao = traduzExpressao(expressao)
-
-    try:
-        if "ALL" in expressao_raw:
-            expansao = expandeExpressao(expressao_raw)
-
-            for expr_raw in expansao:
-                expressao = parseExpressao(expr_raw)
-                expressao = traduzExpressao(expressao)
-                calculaExpressao(expressao,"Relatorio1")
-        else:
-            calculaExpressao(expressao, "Relatorio1")
-    except Exception:
-        return False
-    else:
-        return True
-
-
 def traduzExpressao(expressao: list[str]) -> list[str]:  # aliases
     for i in range(len(expressao)):
-        novo_argumento = ""
+        novo_termo = ""
         for campo in expressao[i].split(':'):
-            novo_argumento += aliases.get(campo, campo) + ':'
+            novo_termo += ALIASES.get(campo, campo) + ':'
 
-        novo_argumento = novo_argumento[:-1]
-        expressao[i] = novo_argumento
+        novo_termo = novo_termo[:-1]
+        expressao[i] = novo_termo
 
     return expressao
 
 
+def expandeVariavel(variavel: str) -> list[str]:
+    chaves = variavel.split(':')
+    all_index = chaves.index("ALL")
+    valor, failure_index = obtemValorEspecifico(chaves)
 
-def expandeExpressao(expressao_raw: str) -> list[str]:
+
+    chaves_expandidas = []
+    if all_index == failure_index:
+        for chave in valor:
+            chaves_expandidas.append(chaves[:all_index] + [chave] + chaves[all_index+1:])
+
+    else:
+        nova_chaves = chaves[:failure_index] + [list(valor.keys())[0]] + chaves[failure_index:]
+        nova_variavel = ':'.join(nova_chaves)
+
+        chaves_expandidas = []
+        for variavel in expandeVariavel(nova_variavel):
+            chaves_temp = variavel.split(':')
+            del chaves_temp[failure_index]
+            chaves_expandidas.append(chaves_temp)
+
+    variaveis_expandidas = list(map(':'.join, chaves_expandidas))
+    return variaveis_expandidas
+
+
+def expandeExpressao(expressao: list[str]) -> list[list[str]]:
     '''
     Expande uma expressao para uma lista de todas as possiveis expressoes
     a partir da keyword "ALL"
@@ -103,30 +115,30 @@ def expandeExpressao(expressao_raw: str) -> list[str]:
         quotasMercado:empresa4:prod1
         etc..
     '''
-    expansao = []
-    componentesExpressao = processaExpressao(expressao_raw)
-    
-    if expressao_raw.count("ALL") != 1: return [expressao_raw]
-    var = [x for x in componentesExpressao if "ALL" in x][0]
+    if all("ALL" not in termo for termo in expressao):
+        return [expressao]
 
-    componentesVar = var.split(':')
-    i = componentesVar.index("ALL")
+    for i in range(len(expressao)):
+        termo = expressao[i]
+        if ehVarivel(termo) and "ALL" in termo:
+            expressoes_expandidas = []
+            for variavel in expandeVariavel(termo):
+                nova_expressao = expressao[:i] + [variavel] + expressao[i+1:]
+                expressoes_expandidas += expandeExpressao(nova_expressao)
 
-    tabela_valores = dados_relatorio
-
-    for j in range(i):
-        tabela_valores = tabela_valores[componentesVar[j]]
-        
-    for k in tabela_valores.keys():
-        novaExpressao = expressao_raw.replace("ALL",k)
-        expansao.append(novaExpressao)
-
-    return expansao
+            return expressoes_expandidas
 
 
-
-
-def calculaInfo(expressao_raw: str, trimestres: list[str]) -> list[int | float]:
-    expressao = parseExpressao(expressao_raw)
-    expressao = traduzExpressao(expressao)
+def calculaInfoExpressao(expressao: list[str], trimestres: list[str]) -> list[int | float]:
     return [calculaExpressao(expressao, trimestre) for trimestre in trimestres]
+
+
+def calculaInfo(expressoes_raw: list[str], trimestres: list[str]) -> list[tuple[str, list[int | float]]]:
+    expressoes = list(map(parseExpressao, expressoes_raw))
+    expressoes = list(map(traduzExpressao, expressoes))
+
+    expressoes_expandidas = []
+    for expressao in expressoes:
+        expressoes_expandidas += expandeExpressao(expressao)
+
+    return [(''.join(expressao), calculaInfoExpressao(expressao, trimestres)) for expressao in expressoes_expandidas]
