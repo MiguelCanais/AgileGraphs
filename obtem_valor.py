@@ -41,7 +41,7 @@ def obtemValorAux(chaves: list[str], relatorio: str) -> int | float:
 
 
 
-def obtemValor(tipo: str, relatorio: str) -> int | float:
+def obtemValor(var: str, relatorio: str) -> int | float:
     """
     Exemplos de tipo:
         "vendas" - Calcula o valor de todas as vendas
@@ -52,7 +52,5 @@ def obtemValor(tipo: str, relatorio: str) -> int | float:
     if relatorio not in relatorios:
         loadRelatorio(relatorio)
 
-    chaves = tipo.split(':')
+    chaves = var.split(':')
     return obtemValorAux(chaves, relatorio)
-
-

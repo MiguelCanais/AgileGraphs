@@ -124,9 +124,6 @@ def expandeExpressao(expressao_raw: str) -> list[str]:
     return expansao
 
 
-def processaExpressao(expressao_raw: str):
-    expressao = parseExpressao(expressao_raw)
-    return traduzExpressao(expressao)
 
 
 def calculaInfo(expressao_raw: str, trimestres: list[str]) -> list[int | float]:

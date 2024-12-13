@@ -1,7 +1,7 @@
 import os
 from utils import obtemTrimestres, obtemUltimosTrimestres
 from graficos import criaGraficos
-from calcula_info import parseExpressao, calculaExpressao, traduzExpressao, ehExpressaoValida, expandeExpressao
+from calcula_info import calculaInfo, ehExpressaoValida, expandeExpressao
 
 
 def obtemInput(promptText, inputValido: list[str] = []) -> str:
@@ -73,10 +73,24 @@ def mostraValoresPrompt():
     Prod2   x
     Prod3   x
 
-
-    > vendas:prod1:ue
-    x
     """
+    ultimoTrimestre = obtemUltimosTrimestres(1)[0]
+
+    print("\nInsira expressão para mostrar (q para sair):")
+    while True:
+        userInput = obtemInput("> ", [])
+        if userInput == "q":
+            return
+
+        if not ehExpressaoValida(userInput):
+            print("Expressão Inválida")
+            continue
+
+        # ans = calculaExpressao(expressao, ultimoTrimestre)
+
+        print(ans)
+        print()
+
 
 
 def calculaValoresPrompt():
@@ -89,14 +103,12 @@ def calculaValoresPrompt():
         if userInput == "q":
             return
 
-        if not ehExpressaoValida(userInput):
+        if not ehExpressaoValida(userInput) or "ALL" in userInput:
             print("Expressão Inválida")
             continue
 
         userInput = userInput.replace("ans", str(ans))
-        expressao = parseExpressao(userInput)
-        traduzExpressao(expressao)
-        ans = calculaExpressao(expressao, ultimoTrimestre)
+        ans = calculaInfo(userInput, [ultimoTrimestre])[0]
 
         print(ans)
         print()
