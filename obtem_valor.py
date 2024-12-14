@@ -53,4 +53,15 @@ def obtemValor(variavel: str, relatorio: str) -> int | float:
         loadRelatorio(relatorio)
 
     chaves = variavel.split(':')
-    return obtemValorAux(chaves, relatorio)
+
+    if '' == chaves[-1]:  # acesso direto a uma celula
+        try:
+            sheet = "sheet" + chaves[0][0]
+            celula = chaves[0][1:]
+            return relatorios[relatorio][sheet][celula].value
+        except Exception:
+            if chaves[0][0] not in ('1', '2'):
+                raise ValueError(f"A sheet 'sheet{chaves[0][0]}' não existe")
+            raise ValueError(f"A célula {chaves[0][1:]} não existe")
+    else:
+        return obtemValorAux(chaves, relatorio)

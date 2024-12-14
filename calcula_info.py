@@ -120,7 +120,8 @@ def expandeExpressao(expressao: list[str]) -> list[list[str]]:
 
     for i in range(len(expressao)):
         termo = expressao[i]
-        if ehVarivel(termo) and "ALL" in termo:
+        chaves = termo.split(':')
+        if ehVarivel(termo) and "ALL" in chaves:
             expressoes_expandidas = []
             for variavel in expandeVariavel(termo):
                 nova_expressao = expressao[:i] + [variavel] + expressao[i+1:]
