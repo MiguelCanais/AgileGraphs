@@ -29,11 +29,6 @@ dados_relatorio = {
         "prod3": ("sheet1", "AE45"),
     },
 
-    "reclamacoesWebsite": {
-        "prod1": ("sheet1", "AA48"),
-        "prod2": ("sheet1", "AC48"),
-        "prod3": ("sheet1", "AE48"),
-    },
 
     "transportes": {
         "distanciaViagem": {
@@ -52,6 +47,11 @@ dados_relatorio = {
         "portasDisponiveis":  ("sheet1", "J51"),
         "visitas":            ("sheet1", "J52"),
         "tentativasFalhadas": ("sheet1", "J53"),
+        "reclamacoes": {
+            "prod1": ("sheet1", "AA48"),
+            "prod2": ("sheet1", "AC48"),
+            "prod3": ("sheet1", "AE48"),
+        },
     },
 
     "entregas": {
@@ -285,6 +285,7 @@ dados_relatorio = {
         "seguros": ("sheet2", "J18"),
         "rendimentosFinanceiros": ("sheet2", "J19"),
         "gastosFinanceiros": ("sheet2", "J20"),
+        "despesasAdminstrativas": ("sheet2", "J21"),
         "depreciacoes": ("sheet2", "J22"),
         "impostos": ("sheet2", "J23"),
         "lucro": ("sheet2", "J25"),

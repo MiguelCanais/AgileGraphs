@@ -5,15 +5,17 @@ LINE_COLORS = ["blue", "red", "green", "orange","purple","cyan","black"]
 
 
 def configuraGrafico(maximo, minimo) -> None:
-    if minimo < 0:
-        amplitude = maximo - minimo
-        lowerlimit = minimo - amplitude * 0.2
-    else:
-        amplitude = maximo
-        lowerlimit = 0
+    # if minimo < 0:
+    #     amplitude = maximo - minimo
+    #     lowerlimit = minimo - amplitude * 0.2
+    # else:
+    #     amplitude = maximo
+    #     lowerlimit = 0
 
+    amplitude = maximo - minimo
+    
     upperlimit = maximo + amplitude * 0.2
-
+    lowerlimit = minimo - amplitude * 0.4
     # offset = 0
     # for i in range(len(trimestres)):
     #     plt.text(trimestres[i],info[i]-offset, f"{info[i]}", fontsize=10,color="black",
