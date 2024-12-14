@@ -1,6 +1,6 @@
-import os
+from os import system
 from graficos import criaGraficos
-from calcula_info import calculaInfo, ehExpressaoValida, expandeExpressao
+from calcula_info import calculaInfo, ehExpressaoValida
 
 
 def obtemInput(promptText, inputValido: list[str] = []) -> str:
@@ -52,7 +52,7 @@ def calculaValoresPrompt():
             continue
 
         userInput = userInput.replace("ANS", str(ans))
-        info_graficos, _ = calculaInfo([userInput])
+        info_graficos = calculaInfo([userInput])
 
         if len(info_graficos) == 1:
             print(info_graficos[0][1][-1])
@@ -115,7 +115,7 @@ OPCOES = {
 
 def prompt():
     while True:
-        os.system("clear")
+        system("clear")
         print("\n------ AgileGraphs ------\n")
         print("Escolha uma opção:")
 

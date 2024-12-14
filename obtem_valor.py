@@ -53,9 +53,21 @@ def obtemValor(variavel: str, relatorio: int) -> int | float:
         "vendas:ue" -
         "vendas:prod1:ue"
     """
-    chaves = variavel.split(':')
+    if variavel.startswith(':'):  # acesso a outro relatorio
+        chaves = variavel.split(':')
+        nova_variavel = ':'.join(chaves[2:])
 
-    if chaves[-1] == '':  # acesso direto a uma celula
-        return obtemValorCelula(chaves[0], relatorio)
-    else:
-        return obtemValorAux(chaves, relatorio)
+        offset = chaves[1]
+        if offset.startswith('~'):
+            novo_relatorio = relatorio - int(offset[1:])
+        else:
+            novo_relatorio = relatorio + int(offset)
+
+        return obtemValor(nova_variavel, novo_relatorio)
+
+    if variavel.endswith(':'):  # acesso direto a uma celula
+        return obtemValorCelula(variavel[:-1], relatorio)
+
+    # variavel normal
+    chaves = variavel.split(':')
+    return obtemValorAux(chaves, relatorio)

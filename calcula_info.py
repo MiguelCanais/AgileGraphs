@@ -1,3 +1,4 @@
+from numpy import nan
 from obtem_valor import obtemValor, obtemValorEspecifico, numero_relatorios
 
 OPERADORES = ["+", "-", "*", "/", "(", ")"]
@@ -16,7 +17,7 @@ ALIASES = {
 }
 
 
-def ehVarivel(termo: str) -> bool:
+def ehVariavel(termo: str) -> bool:
     return termo not in OPERADORES and not all(s.isnumeric() for s in termo.split('.'))
 
 
@@ -33,13 +34,28 @@ def ehExpressaoValida(expressao_raw: str) -> bool:
 
 
 def calculaRelatoriosValidos(expressao: list[str]) -> list[int]:
-    return list(range(numero_relatorios))
+    max_frente, max_tras = 0, 0
+
+    variaveis = filter(ehVariavel, expressao)
+    for variavel in variaveis:
+        if not variavel.startswith(':'):
+            continue
+
+        chaves = variavel.split(':')
+        offset = chaves[1]
+
+        if offset.startswith('~'):
+            max_tras = max(max_tras, int(offset[1:]))
+        else:
+            max_frente = max(max_frente, int(offset))
+
+    return list(range(max_tras, numero_relatorios - max_frente))
 
 
 def calculaExpressao(expressao: list[str], relatorio: int) -> int | float:
     expressao_substituida = ""
     for termo in expressao:
-        if ehVarivel(termo):
+        if ehVariavel(termo):
             expressao_substituida += str(obtemValor(termo, relatorio))
         else:
             expressao_substituida += termo
@@ -94,7 +110,6 @@ def expandeVariavel(variavel: str) -> list[str]:
         nova_chaves = chaves[:failure_index] + [list(valor.keys())[0]] + chaves[failure_index:]
         nova_variavel = ':'.join(nova_chaves)
 
-        chaves_expandidas = []
         for variavel in expandeVariavel(nova_variavel):
             chaves_temp = variavel.split(':')
             del chaves_temp[failure_index]
@@ -125,7 +140,7 @@ def expandeExpressao(expressao: list[str]) -> list[list[str]]:
     for i in range(len(expressao)):
         termo = expressao[i]
         chaves = termo.split(':')
-        if ehVarivel(termo) and "ALL" in chaves:
+        if ehVariavel(termo) and "ALL" in chaves:
             expressoes_expandidas = []
             for variavel in expandeVariavel(termo):
                 nova_expressao = expressao[:i] + [variavel] + expressao[i+1:]
@@ -134,11 +149,19 @@ def expandeExpressao(expressao: list[str]) -> list[list[str]]:
             return expressoes_expandidas
 
 
-def calculaInfoExpressao(expressao: list[str], relatorios: list[int]) -> list[int | float]:
-    return [calculaExpressao(expressao, relatorio) for relatorio in relatorios]
+def calculaInfoExpressao(expressao: list[str]) -> list[int | float]:
+    relatorios = calculaRelatoriosValidos(expressao)
+    if len(relatorios) == 0:
+        raise ValueError("Não existem relatórios suficientes para satisfazer a expressão")
+
+    info = [nan] * numero_relatorios
+    for relatorio in relatorios:
+        info[relatorio] = calculaExpressao(expressao, relatorio)
+
+    return info
 
 
-def calculaInfo(expressoes_raw: list[str]) -> tuple[list[tuple[str, list[int | float]]], list[int]]:  # what a pretty return type ;)
+def calculaInfo(expressoes_raw: list[str]) -> list[tuple[str, list[int | float]]]:  # what a pretty return type ;)
     expressoes = list(map(parseExpressao, expressoes_raw))
     expressoes = list(map(traduzExpressao, expressoes))
 
@@ -146,7 +169,4 @@ def calculaInfo(expressoes_raw: list[str]) -> tuple[list[tuple[str, list[int | f
     for expressao in expressoes:
         expressoes_expandidas += expandeExpressao(expressao)
 
-    relatorios = calculaRelatoriosValidos(expressoes_expandidas[0])
-    info_graficos = [(''.join(expressao), calculaInfoExpressao(expressao, relatorios)) for expressao in expressoes_expandidas]
-
-    return info_graficos, relatorios
+    return [(''.join(expressao), calculaInfoExpressao(expressao)) for expressao in expressoes_expandidas]

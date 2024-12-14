@@ -1,17 +1,13 @@
-from calcula_info import calculaInfo
 import matplotlib.pyplot as plt
+from numpy import nanmax, nanmin
+from calcula_info import calculaInfo
+from obtem_valor import numero_relatorios
 
 LINE_COLORS = ["blue", "red", "green", "orange", "purple", "cyan", "black"]
+RELATORIOS = [f"Relatorio{n}" for n in range(1, numero_relatorios+1)]
 
 
 def configuraGrafico(maximo, minimo) -> None:
-    # if minimo < 0:
-    #     amplitude = maximo - minimo
-    #     lowerlimit = minimo - amplitude * 0.2
-    # else:
-    #     amplitude = maximo
-    #     lowerlimit = 0
-
     amplitude = maximo - minimo
 
     upperlimit = maximo + amplitude * 0.2
@@ -34,16 +30,17 @@ def criaGraficos(expressoes_raw: list[str], title: str = "Grafico") -> None:
     maximo = -(10**100)
     minimo = 10**100
 
-    info_graphs, relatorios = calculaInfo(expressoes_raw)
-    relatorios = list(map(lambda n: f"Relatorio{n+1}", relatorios))
+    info_graphs = calculaInfo(expressoes_raw)
     for i in range(len(info_graphs)):
         expressao, info = info_graphs[i]
+        print(expressao, info)
+        print(nanmax(info), nanmin(info))
 
-        maximo = max(max(info), maximo)
-        minimo = min(min(info), minimo)
+        maximo = max(nanmax(info), maximo)
+        minimo = min(nanmin(info), minimo)
 
         plt.plot(
-            relatorios,
+            RELATORIOS,
             info,
             label=expressao,
             marker="o",
