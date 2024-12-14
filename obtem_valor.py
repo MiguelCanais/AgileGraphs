@@ -1,16 +1,13 @@
+from os import listdir
 from openpyxl import load_workbook
 from dados_celulas import dados_relatorio
 
 RELATORIOS_DIRECTORY = "./relatorios/"
-relatorios = {}
+relatorios = [load_workbook(RELATORIOS_DIRECTORY + relatorio) for relatorio in listdir(RELATORIOS_DIRECTORY)]
+numero_relatorios = len(relatorios)
 
 
-def loadRelatorio(relatorio: str) -> None:
-    global relatorios
-    relatorios[relatorio] = load_workbook(RELATORIOS_DIRECTORY + relatorio + ".xlsx")
-
-
-def obtemValorCelula(celula_raw: str, relatorio: str) -> int | float:
+def obtemValorCelula(celula_raw: str, relatorio: int) -> int | float:
     sheet = "Excel_" + celula_raw[0]
     celula = celula_raw[1:]
 
@@ -39,7 +36,7 @@ def obtemValorEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
     return valor, failure_index
 
 
-def obtemValorAux(chaves: list[str], relatorio: str) -> int | float:
+def obtemValorAux(chaves: list[str], relatorio: int) -> int | float:
     valor, failure_index = obtemValorEspecifico(chaves)
 
     if type(valor) is str:
@@ -48,8 +45,7 @@ def obtemValorAux(chaves: list[str], relatorio: str) -> int | float:
         return sum(obtemValorAux(chaves[:failure_index] + [chave] + chaves[failure_index:], relatorio) for chave in valor)
 
 
-
-def obtemValor(variavel: str, relatorio: str) -> int | float:
+def obtemValor(variavel: str, relatorio: int) -> int | float:
     """
     Exemplos de tipo:
         "vendas" - Calcula o valor de todas as vendas
@@ -57,9 +53,6 @@ def obtemValor(variavel: str, relatorio: str) -> int | float:
         "vendas:ue" -
         "vendas:prod1:ue"
     """
-    if relatorio not in relatorios:
-        loadRelatorio(relatorio)
-
     chaves = variavel.split(':')
 
     if chaves[-1] == '':  # acesso direto a uma celula

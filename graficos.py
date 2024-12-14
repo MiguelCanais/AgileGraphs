@@ -1,7 +1,7 @@
 from calcula_info import calculaInfo
 import matplotlib.pyplot as plt
 
-LINE_COLORS = ["blue", "red", "green", "orange","purple","cyan","black"]
+LINE_COLORS = ["blue", "red", "green", "orange", "purple", "cyan", "black"]
 
 
 def configuraGrafico(maximo, minimo) -> None:
@@ -13,7 +13,7 @@ def configuraGrafico(maximo, minimo) -> None:
     #     lowerlimit = 0
 
     amplitude = maximo - minimo
-    
+
     upperlimit = maximo + amplitude * 0.2
     lowerlimit = minimo - amplitude * 0.4
     # offset = 0
@@ -28,13 +28,14 @@ def configuraGrafico(maximo, minimo) -> None:
     plt.grid()
 
 
-def criaGraficos(expressoes_raw: list[str], trimestres: list[str], title: str = "Grafico") -> None:
+def criaGraficos(expressoes_raw: list[str], title: str = "Grafico") -> None:
     plt.close()
 
     maximo = -(10**100)
     minimo = 10**100
 
-    info_graphs = calculaInfo(expressoes_raw, trimestres)
+    info_graphs, relatorios = calculaInfo(expressoes_raw)
+    relatorios = list(map(lambda n: f"Relatorio{n+1}", relatorios))
     for i in range(len(info_graphs)):
         expressao, info = info_graphs[i]
 
@@ -42,7 +43,7 @@ def criaGraficos(expressoes_raw: list[str], trimestres: list[str], title: str = 
         minimo = min(min(info), minimo)
 
         plt.plot(
-            trimestres,
+            relatorios,
             info,
             label=expressao,
             marker="o",

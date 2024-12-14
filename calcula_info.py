@@ -1,4 +1,4 @@
-from obtem_valor import obtemValor, obtemValorEspecifico
+from obtem_valor import obtemValor, obtemValorEspecifico, numero_relatorios
 
 OPERADORES = ["+", "-", "*", "/", "(", ")"]
 
@@ -25,18 +25,22 @@ def ehExpressaoValida(expressao_raw: str) -> bool:
     Verifica que uma string eh uma expressao valida
     '''
     try:
-        calculaInfo([expressao_raw], ["Relatorio1"])
+        calculaInfo([expressao_raw])
     except Exception:
         return False
     else:
         return True
 
 
-def calculaExpressao(expressao: list[str], trimestre: str) -> int | float:
+def calculaRelatoriosValidos(expressao: list[str]) -> list[int]:
+    return list(range(numero_relatorios))
+
+
+def calculaExpressao(expressao: list[str], relatorio: int) -> int | float:
     expressao_substituida = ""
     for termo in expressao:
         if ehVarivel(termo):
-            expressao_substituida += str(obtemValor(termo, trimestre))
+            expressao_substituida += str(obtemValor(termo, relatorio))
         else:
             expressao_substituida += termo
 
@@ -130,11 +134,11 @@ def expandeExpressao(expressao: list[str]) -> list[list[str]]:
             return expressoes_expandidas
 
 
-def calculaInfoExpressao(expressao: list[str], trimestres: list[str]) -> list[int | float]:
-    return [calculaExpressao(expressao, trimestre) for trimestre in trimestres]
+def calculaInfoExpressao(expressao: list[str], relatorios: list[int]) -> list[int | float]:
+    return [calculaExpressao(expressao, relatorio) for relatorio in relatorios]
 
 
-def calculaInfo(expressoes_raw: list[str], trimestres: list[str]) -> list[tuple[str, list[int | float]]]:
+def calculaInfo(expressoes_raw: list[str]) -> tuple[list[tuple[str, list[int | float]]], list[int]]:  # what a pretty return type ;)
     expressoes = list(map(parseExpressao, expressoes_raw))
     expressoes = list(map(traduzExpressao, expressoes))
 
@@ -142,4 +146,7 @@ def calculaInfo(expressoes_raw: list[str], trimestres: list[str]) -> list[tuple[
     for expressao in expressoes:
         expressoes_expandidas += expandeExpressao(expressao)
 
-    return [(''.join(expressao), calculaInfoExpressao(expressao, trimestres)) for expressao in expressoes_expandidas]
+    relatorios = calculaRelatoriosValidos(expressoes_expandidas[0])
+    info_graficos = [(''.join(expressao), calculaInfoExpressao(expressao, relatorios)) for expressao in expressoes_expandidas]
+
+    return info_graficos, relatorios

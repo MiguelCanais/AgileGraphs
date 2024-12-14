@@ -14,6 +14,9 @@ pip install openpyxl matplotlib
 - adicionar aliases às expressoes
 - interface CLI
 - expanção ALL
+- acesso direto a celúlas
+    1AA32:
+    2U12:
 
 
 ## TODO
@@ -22,10 +25,6 @@ pip install openpyxl matplotlib
     vendas:prod1
     :~2:vendas:prod1
     :2:vendas:prod1
-- acesso direto a celúlas
-    :AA32:
-    :1:AA45:
-    :~1:AA45:
 - documentação
 - integrar o resto dos dados
 - seleção de cores para os graficos ?
