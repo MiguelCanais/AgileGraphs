@@ -27,8 +27,6 @@ pip install openpyxl matplotlib
 - fix bugs with ALL
 - introduzir numbered ALLs, 1ALL, 2ALL
 - escrever os erros
-- detetar melhor formulas erradas:
-    vendas:pod1
 - por o mostraValores a funcionar
 - documentação
 - integrar o resto dos dados

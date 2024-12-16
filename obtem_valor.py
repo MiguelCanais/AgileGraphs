@@ -11,12 +11,12 @@ def obtemValorCelula(celula_raw: str, relatorio: int) -> int | float:
     celula = celula_raw[1:]
 
     if sheet not in ("Excel_1", "Excel_2"):
-        raise ValueError(f"A folha '{sheet}' não existe")
+        raise ValueError(f"A folha '{sheet}' não existe.")
 
     try:
         return relatorios_loaded[relatorio][sheet][celula].value
     except Exception:
-        raise ValueError(f"A célula {celula} não existe")
+        raise ValueError(f"A célula {celula} não existe.")
 
 
 def obtemValorEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
@@ -24,7 +24,7 @@ def obtemValorEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
     failure_index = 0
     for chave in chaves:
         if type(valor) is tuple:
-            raise ValueError("variavel errada:", chave)
+            raise ValueError(f"variavel errada: {chave}.")
 
         if chave in valor:
             valor = valor[chave]
@@ -39,7 +39,11 @@ def obtemValorAux(chaves: list[str], relatorio: int) -> int | float:
     valor, failure_index = obtemValorEspecifico(chaves)
 
     if type(valor) is str:
-        return obtemValorCelula(valor, relatorio)
+        if failure_index == len(chaves):
+            return obtemValorCelula(valor, relatorio)
+        else:
+            parte_mal_escrita = ':'.join(chaves[failure_index:])
+            raise ValueError(f"'{parte_mal_escrita}' está mal escrito.")
     else:
         return sum(obtemValorAux(chaves[:failure_index] + [chave] + chaves[failure_index:], relatorio) for chave in valor)
 

@@ -30,7 +30,6 @@ def criaGraficosPrompt():
                 break
 
             if not ehExpressaoValida(userInput):
-                print("Expressão Inválida")
                 continue
 
             expressoes.append(userInput)
@@ -48,7 +47,6 @@ def calculaValoresPrompt():
             return
 
         if not ehExpressaoValida(userInput):
-            print("Expressão Inválida")
             continue
 
         userInput = userInput.replace("ANS", str(ans))
@@ -88,6 +86,7 @@ def mostraValoresPrompt():
     Prod3   x
 
     """
+    print("mostra valores ainda está em desenvolvimento, atualmente não faz nada")
     print("\nInsira expressão para mostrar (q para sair):")
     while True:
         userInput = obtemInput("> ", [])
@@ -95,12 +94,11 @@ def mostraValoresPrompt():
             return
 
         if not ehExpressaoValida(userInput):
-            print("Expressão Inválida")
             continue
 
         # ans = calculaExpressao(expressao, ultimoTrimestre)
 
-        print(ans)
+        # print(ans)
         print()
 
 

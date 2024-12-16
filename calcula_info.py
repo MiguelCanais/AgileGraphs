@@ -30,7 +30,8 @@ def ehExpressaoValida(expressao_raw: str) -> bool:
     '''
     try:
         calculaInfo([expressao_raw])
-    except Exception:
+    except Exception as e:
+        print("Expressao inválida -", str(e))
         return False
     else:
         return True
@@ -51,7 +52,7 @@ def calculaRelatoriosValidos(expressao: list[str]) -> list[int]:
             max_tras = max(max_tras, int(offset[1:]))
         elif offset.startswith('#'):
             if not (1 <= int(offset[1:]) <= NUMERO_RELATORIOS):
-                raise ValueError(f"O relatório {int(offset[1:])} não existe")
+                raise ValueError(f"O relatório {int(offset[1:])} não existe.")
         else:
             max_frente = max(max_frente, int(offset))
 
@@ -158,7 +159,7 @@ def expandeExpressao(expressao: list[str]) -> list[list[str]]:
 def calculaInfoExpressao(expressao: list[str]) -> list[int | float]:
     relatorios = calculaRelatoriosValidos(expressao)
     if len(relatorios) == 0:
-        raise ValueError("Não existem relatórios suficientes para satisfazer a expressão")
+        raise ValueError("Não existem relatórios suficientes para satisfazer a expressão.")
 
     info = [nan] * NUMERO_RELATORIOS
     for relatorio in relatorios:
