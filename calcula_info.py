@@ -102,36 +102,32 @@ def traduzExpressao(expressao: list[str]) -> list[str]:  # aliases
     return expressao
 
 
-def expandeVariavel(variavel: str) -> list[str]:
-    chaves = variavel.split(':')
-
-    if variavel.startswith(':'):
-        relatorio_preffix = chaves[:2]
-        chaves = chaves[2:]
-    else:
-        relatorio_preffix = []
-
+def expandeALL(chaves: list[str]) -> list[str]:
     all_index = chaves.index("ALL")
     valor, failure_index = obtemValorEspecifico(chaves)
 
-
-    chaves_expandidas = []
     if all_index == failure_index:
-        for chave in valor:
-            chaves_expandidas.append(chaves[:all_index] + [chave] + chaves[all_index+1:])
-
+        return list(valor.keys())
     else:
         nova_chaves = chaves[:failure_index] + [list(valor.keys())[0]] + chaves[failure_index:]
-        nova_variavel = ':'.join(nova_chaves)
+        return expandeALL(nova_chaves)
 
-        for variavel_temp in expandeVariavel(nova_variavel):
-            chaves_temp = variavel_temp.split(':')
-            del chaves_temp[failure_index]
-            chaves_expandidas.append(chaves_temp)
 
-    chaves_expandidas = list(map(lambda c: relatorio_preffix + c, chaves_expandidas))
-    variaveis_expandidas = list(map(':'.join, chaves_expandidas))
-    return variaveis_expandidas
+def substituiExpressao(expressao_original: list[str], alvo: str, substituicao: str) -> list[str]:
+    expressao = expressao_original.copy()
+    for i in range(len(expressao)):
+        termo = expressao[i]
+        if not ehVariavel(termo):
+            continue
+
+        chaves = termo.split(':')
+        for j in range(len(chaves)):
+            if chaves[j] == alvo:
+                chaves[j] = substituicao
+
+        expressao[i] = ':'.join(chaves)
+
+    return expressao
 
 
 def expandeExpressao(expressao: list[str]) -> list[list[str]]:
@@ -155,13 +151,39 @@ def expandeExpressao(expressao: list[str]) -> list[list[str]]:
     for i in range(len(expressao)):
         termo = expressao[i]
         chaves = termo.split(':')
-        if ehVariavel(termo) and "ALL" in chaves:
-            expressoes_expandidas = []
-            for variavel in expandeVariavel(termo):
-                nova_expressao = expressao[:i] + [variavel] + expressao[i+1:]
+
+        if not ehVariavel(termo) or not any(chave.startswith('ALL') for chave in chaves):
+            continue
+
+        if termo.startswith(':'):
+            chaves2 = chaves[2:]
+        else:
+            chaves2 = chaves
+
+        for j in range(len(chaves2)):
+            if not chaves2[j].startswith('ALL'):
+                continue
+
+            simple_ALL = chaves2[j] == 'ALL'
+            chave_all = chaves[j]
+            chaves2[j] = 'ALL'
+            break
+
+        substituicoes = expandeALL(chaves2)
+
+        expressoes_expandidas = []
+        if simple_ALL:
+            all_index = chaves.index('ALL')
+            for substituicao in substituicoes:
+                nova_variavel = ':'.join(chaves[:all_index] + [substituicao] + chaves[all_index + 1:])
+                nova_expressao = expressao[:i] + [nova_variavel] + expressao[i+1:]
+                expressoes_expandidas += expandeExpressao(nova_expressao)
+        else:
+            for substituicao in substituicoes:
+                nova_expressao = substituiExpressao(expressao, chave_all, substituicao)
                 expressoes_expandidas += expandeExpressao(nova_expressao)
 
-            return expressoes_expandidas
+        return expressoes_expandidas
 
 
 def calculaInfoExpressao(expressao: list[str]) -> list[int | float]:
