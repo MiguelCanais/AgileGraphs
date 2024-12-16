@@ -2,9 +2,13 @@
 Programa de análise de dados para o Jogo de Gestão IST Management Challenge.
 
 
-## Dependencias
+## Instalação
 ```sh
-pip install openpyxl matplotlib
+Podes usar o script de instalação que está localizado na pasta AgileGraphs.
+```bash
+source ./install.sh
+```
+```
 ```
 
 ## Feito
@@ -24,6 +28,8 @@ pip install openpyxl matplotlib
 - escrever os erros
 - fix bugs with ALL
 - introduzir numbered ALLs, 1ALL, 2ALL
+- historico?
+- autocomplete?
 
 
 ## TODO
@@ -31,9 +37,6 @@ pip install openpyxl matplotlib
 - documentação
 - integrar o resto dos dados
 - seleção de cores para os graficos ?
-- sugestões para valores mal escritos?
-- historico?
-- autocomplete?
 
 
 ## Documentação
