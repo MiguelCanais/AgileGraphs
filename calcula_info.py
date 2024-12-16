@@ -104,6 +104,13 @@ def traduzExpressao(expressao: list[str]) -> list[str]:  # aliases
 
 def expandeVariavel(variavel: str) -> list[str]:
     chaves = variavel.split(':')
+
+    if variavel.startswith(':'):
+        relatorio_preffix = chaves[:2]
+        chaves = chaves[2:]
+    else:
+        relatorio_preffix = []
+
     all_index = chaves.index("ALL")
     valor, failure_index = obtemValorEspecifico(chaves)
 
@@ -122,6 +129,7 @@ def expandeVariavel(variavel: str) -> list[str]:
             del chaves_temp[failure_index]
             chaves_expandidas.append(chaves_temp)
 
+    chaves_expandidas = list(map(lambda c: relatorio_preffix + c, chaves_expandidas))
     variaveis_expandidas = list(map(':'.join, chaves_expandidas))
     return variaveis_expandidas
 
