@@ -10,21 +10,21 @@ def obtemChaves(dados):
     chaves = list(dados.keys())
 
     for v in dados.values():
-        if type(v) == dict:
+        if type(v) is dict:
             chaves += list(obtemChaves(v))
 
     return list(set(chaves))
 
 
 def maiorPrefixoComum(l):
-    '''
+    """
     Dado uma lista de strings encontra o maior prefix comum a todas
     as strings
 
     Por exemplo:
     l = ["prod1", "prod2", "prod3"]
     O maior prefixo comum é "prod"
-    '''
+    """
     i = 0
     while True:
         letra = 0
@@ -39,48 +39,51 @@ def maiorPrefixoComum(l):
 
         i += 1
 
+
 def obtemAutocomplete(expressao):
-    if expressao == "": return ""
-    ultimo = expressao.split(' ')[-1]
-    args = ultimo.split(':')
+    if expressao == "":
+        return ""
+    ultimo = expressao.split(" ")[-1]
+    args = ultimo.split(":")
 
     dados = dados_relatorio
 
     possiveis = []
 
     for arg in args[:-1]:
-        if type(dados[arg]) != dict: 
+        if type(dados[arg]) is not dict:
             return ""
-        
-        if not arg in dados:
+
+        if arg not in dados:
             return ""
-        
+
         dados = dados[arg]
 
     possiveis = obtemChaves(dados)
     prefix = args[-1]
     valid = []
 
-    for k in possiveis: 
+    for k in possiveis:
         if k.startswith(prefix):
             valid.append(k[len(prefix):])
 
-    if len(valid) == 0: 
+    if len(valid) == 0:
         return ""
-    elif len(valid) == 1: 
+    elif len(valid) == 1:
         return valid[0]
     else:
         return maiorPrefixoComum(valid)
-         
 
 
 @kb.add("tab")
 def _(event):
     buffer = event.app.current_buffer
-    autocomplete = obtemAutocomplete(buffer.text[:buffer.cursor_position])
+    autocomplete = obtemAutocomplete(buffer.text[: buffer.cursor_position])
     buffer.insert_text(autocomplete)
 
+
 session = PromptSession(key_bindings=kb)
+
 
 def obtemInputExpressao():
     try:

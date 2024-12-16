@@ -23,10 +23,10 @@ pip install openpyxl matplotlib
     :2:vendas:prod1
 - escrever os erros
 - fix bugs with ALL
+- introduzir numbered ALLs, 1ALL, 2ALL
 
 
 ## TODO
-- introduzir numbered ALLs, 1ALL, 2ALL
 - por o mostraValores a funcionar
 - documentação
 - integrar o resto dos dados
