@@ -1,5 +1,6 @@
 from numpy import nan
-from obtem_valor import obtemValor, obtemValorEspecifico, numero_relatorios
+from obtem_valor import obtemValor, obtemValorEspecifico
+from utils import RELATORIOS
 
 OPERADORES = ["+", "-", "*", "/", "(", ")"]
 
@@ -15,6 +16,8 @@ ALIASES = {
     "emp6": "empresa6",
     "emp7": "empresa7",
 }
+
+NUMERO_RELATORIOS = len(RELATORIOS)
 
 
 def ehVariavel(termo: str) -> bool:
@@ -46,10 +49,13 @@ def calculaRelatoriosValidos(expressao: list[str]) -> list[int]:
 
         if offset.startswith('~'):
             max_tras = max(max_tras, int(offset[1:]))
+        elif offset.startswith('#'):
+            if not (1 <= int(offset[1:]) <= NUMERO_RELATORIOS):
+                raise ValueError(f"O relatório {int(offset[1:])} não existe")
         else:
             max_frente = max(max_frente, int(offset))
 
-    return list(range(max_tras, numero_relatorios - max_frente))
+    return list(range(max_tras, NUMERO_RELATORIOS - max_frente))
 
 
 def calculaExpressao(expressao: list[str], relatorio: int) -> int | float:
@@ -154,7 +160,7 @@ def calculaInfoExpressao(expressao: list[str]) -> list[int | float]:
     if len(relatorios) == 0:
         raise ValueError("Não existem relatórios suficientes para satisfazer a expressão")
 
-    info = [nan] * numero_relatorios
+    info = [nan] * NUMERO_RELATORIOS
     for relatorio in relatorios:
         info[relatorio] = calculaExpressao(expressao, relatorio)
 

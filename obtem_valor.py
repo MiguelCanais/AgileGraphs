@@ -1,10 +1,9 @@
-from os import listdir
 from openpyxl import load_workbook
 from dados_celulas import dados_relatorio
+from utils import RELATORIOS
 
 RELATORIOS_DIRECTORY = "./relatorios/"
-relatorios = [load_workbook(RELATORIOS_DIRECTORY + relatorio) for relatorio in sorted(listdir(RELATORIOS_DIRECTORY))]
-numero_relatorios = len(relatorios)
+relatorios_loaded = [load_workbook(RELATORIOS_DIRECTORY + relatorio + '.xlsx') for relatorio in RELATORIOS]
 
 
 def obtemValorCelula(celula_raw: str, relatorio: int) -> int | float:
@@ -15,7 +14,7 @@ def obtemValorCelula(celula_raw: str, relatorio: int) -> int | float:
         raise ValueError(f"A folha '{sheet}' não existe")
 
     try:
-        return relatorios[relatorio][sheet][celula].value
+        return relatorios_loaded[relatorio][sheet][celula].value
     except Exception:
         raise ValueError(f"A célula {celula} não existe")
 
@@ -60,8 +59,10 @@ def obtemValor(variavel: str, relatorio: int) -> int | float:
         offset = chaves[1]
         if offset.startswith('~'):
             novo_relatorio = relatorio - int(offset[1:])
+        elif offset.startswith('#'):
+            novo_relatorio = int(offset[1:]) + 1
         else:
-            novo_relatorio = relatorio + int(offset)
+            novo_relatorio = relatorio + int(offset) - 1
 
         return obtemValor(nova_variavel, novo_relatorio)
 

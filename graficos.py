@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
 from numpy import nanmax, nanmin
 from calcula_info import calculaInfo
-from obtem_valor import numero_relatorios
+from utils import RELATORIOS
 
 LINE_COLORS = ["blue", "red", "green", "orange", "purple", "cyan", "black"]
-RELATORIOS = [f"Relatorio{n}" for n in range(1, numero_relatorios+1)]
 
 
 def configuraGrafico(maximo, minimo) -> None:
@@ -12,10 +11,6 @@ def configuraGrafico(maximo, minimo) -> None:
 
     upperlimit = maximo + amplitude * 0.2
     lowerlimit = minimo - amplitude * 0.4
-    # offset = 0
-    # for i in range(len(trimestres)):
-    #     plt.text(trimestres[i],info[i]-offset, f"{info[i]}", fontsize=10,color="black",
-    #              bbox=dict(facecolor="white", alpha=0.5, edgecolor="black"))
 
     plt.xlabel("Trimestres")
     plt.legend(loc="lower left", fontsize=10)

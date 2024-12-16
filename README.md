@@ -17,14 +17,19 @@ pip install openpyxl matplotlib
 - acesso direto a celúlas
     1AA32:
     2U12:
+- aceder a valores de outros trimestres
+    :~2:vendas:prod1
+    :+2:vendas:prod1
+    :2:vendas:prod1
 
 
 ## TODO
+- fix bugs with ALL
+- introduzir numbered ALLs, 1ALL, 2ALL
+- escrever os erros
+- detetar melhor formulas erradas:
+    vendas:pod1
 - por o mostraValores a funcionar
-- aceder a valores de outros trimestres
-    vendas:prod1
-    :~2:vendas:prod1
-    :2:vendas:prod1
 - documentação
 - integrar o resto dos dados
 - seleção de cores para os graficos ?
