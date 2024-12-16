@@ -110,8 +110,8 @@ def expandeVariavel(variavel: str) -> list[str]:
         nova_chaves = chaves[:failure_index] + [list(valor.keys())[0]] + chaves[failure_index:]
         nova_variavel = ':'.join(nova_chaves)
 
-        for variavel in expandeVariavel(nova_variavel):
-            chaves_temp = variavel.split(':')
+        for variavel_temp in expandeVariavel(nova_variavel):
+            chaves_temp = variavel_temp.split(':')
             del chaves_temp[failure_index]
             chaves_expandidas.append(chaves_temp)
 

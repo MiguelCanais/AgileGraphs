@@ -3,7 +3,7 @@ from openpyxl import load_workbook
 from dados_celulas import dados_relatorio
 
 RELATORIOS_DIRECTORY = "./relatorios/"
-relatorios = [load_workbook(RELATORIOS_DIRECTORY + relatorio) for relatorio in listdir(RELATORIOS_DIRECTORY)]
+relatorios = [load_workbook(RELATORIOS_DIRECTORY + relatorio) for relatorio in sorted(listdir(RELATORIOS_DIRECTORY))]
 numero_relatorios = len(relatorios)
 
 

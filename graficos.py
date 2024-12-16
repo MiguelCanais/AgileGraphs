@@ -33,8 +33,6 @@ def criaGraficos(expressoes_raw: list[str], title: str = "Grafico") -> None:
     info_graphs = calculaInfo(expressoes_raw)
     for i in range(len(info_graphs)):
         expressao, info = info_graphs[i]
-        print(expressao, info)
-        print(nanmax(info), nanmin(info))
 
         maximo = max(nanmax(info), maximo)
         minimo = min(nanmin(info), minimo)
