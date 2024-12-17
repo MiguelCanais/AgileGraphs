@@ -1,10 +1,13 @@
 # AgileGraphs
+
 Programa de análise de dados para o Jogo de Gestão IST Management Challenge.
 Feito pela equipa AGILE team.
 
 ![Preview](imagens/grafico_exemplo.png)
 
+
 ## Introdução
+
 AgileGraphs oferece uma interface de terminal para criar gráficos e calcular valores
 relativos aos relatórios de uma empresa do Jogo de Gestão IST Management Challenge.
 
@@ -16,11 +19,11 @@ Existem três modos:
 ![Preview](imagens/prompt_exemplo.png)
 
 
-
 ## Instalação
 A maneira mais fácil de instalar é correr o script de instalação com
 o comando seguinte:
 ```bash
+# ..../AgileGraphs/
 source ./install.sh
 ```
 
@@ -122,7 +125,7 @@ Como podemos ver as seguintes variáveis são válidas:
     - transportes:distanciaViagem:internet
 
 
-#### aliases
+#### Aliases
 
 É possível escrever de forma resumida algumas chaves de uma variável usando aliases.
 Os aliases disponíveis estão defenidos no dicionáro `ALIASES` que está presente no ficheiro `calcula_info.py`.
@@ -260,28 +263,28 @@ Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](./docs_imagens/exemplo1_grafico.png)
+![](imagens/exemplo1_grafico.png)
 #### Exemplo 2
 ```
 Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](./docs_imagens/exemplo3_grafico.png)
+![](imagens/exemplo3_grafico.png)
 #### Exemplo 3
 ```
 Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](./docs_imagens/exemplo3_grafico.png)
+![](imagens/exemplo3_grafico.png)
 #### Exemplo 4
 ```
 Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](./docs_imagens/exemplo4_grafico.png)
+![](imagens/exemplo4_grafico.png)
 
 ### Calcula valores
 
@@ -360,18 +363,17 @@ Nada de assentos ou 'ç'.
 - escrever os erros
 - fix bugs with ALL
 - introduzir numbered ALLs, 1ALL, 2ALL
-- historico?
-- autocomplete?
+- historico
+- autocomplete
+- documentação
+- trocar prodX por produtoX e criar aliases
 
 
 ## TODO
 - atualizar cli.py, prompt de input devia ser alterada
 - remove title parameter from criaGraficos
-- trocar prodX por produtoX e criar aliases
 - bugs with autocomplete
 - bug with aliases and autocomplete
-- bug with mostraValores
 - por o mostraValores a funcionar
-- documentação
 - integrar o resto dos dados
 - seleção de cores para os graficos ?
