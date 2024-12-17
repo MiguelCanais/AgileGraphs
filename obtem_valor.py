@@ -64,9 +64,9 @@ def obtemValor(variavel: str, relatorio: int) -> int | float:
         if offset.startswith('~'):
             novo_relatorio = relatorio - int(offset[1:])
         elif offset.startswith('#'):
-            novo_relatorio = int(offset[1:]) + 1
+            novo_relatorio = int(offset[1:]) - 1
         else:
-            novo_relatorio = relatorio + int(offset) - 1
+            novo_relatorio = relatorio + int(offset)
 
         return obtemValor(nova_variavel, novo_relatorio)
 
