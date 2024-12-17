@@ -136,7 +136,7 @@ Como podemos ver as seguintes variáveis são válidas:
     - transportes:distanciaViagem:internet
 
 
-### aliases
+### Aliases
 
 É possível escrever de forma resumida algumas chaves de uma variável usando aliases.
 Os aliases disponíveis estão defenidos no dicionáro `ALIASES` que está presente no ficheiro `calcula_info.py`.
@@ -206,7 +206,7 @@ Exemplos:
     :1000:vendas:prod1:ue     |    Dá erro, a não ser que tenhas mil relatórios
 
 
-#### Expanção ALL
+### Expanção ALL
 
 Imagine que quer fazer o gráfico de vendas de todos os produtos no merado da nafta, escrever:
 ```
@@ -228,7 +228,7 @@ Alguns exemplos:
     - website:ALL:prod1       ->   dá erro, embora website:reclamacoes:prod1 exista, website:visitas:prod1 não.
  
 
-#### Expanssão ALLn
+### Expanssão ALLn
 
 Imagine que quer saber a variação das vendas de todos os produtos (individualmente) ao longo dos relatórios (trimestres) em percentagem.
 Terias de repetir três vezes a expressão '(vendas:prod1 - :\~1:vendas:prod1) * 100 / :\~1:vendas:prod1', pode usar 
@@ -251,7 +251,7 @@ Alguns exemplo:
     - vendas:ALL1 * website:ALL1   ->   dá erro, website:prod1 não existe.
     
 
-#### Aceder diretamente a células
+### Aceder diretamente a células
 
 Podes aceder ao valor de um célula de uma folha de exel especifica usando a seguinte syntax:
     <folha><coluna><linha>:
@@ -274,28 +274,28 @@ Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](./docs_imagens/exemplo1_grafico.png)
+![](imagens/exemplo1_grafico.png)
 ### Exemplo 2
 ```
 Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](./docs_imagens/exemplo3_grafico.png)
+![](imagens/exemplo3_grafico.png)
 ### Exemplo 3
 ```
 Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](./docs_imagens/exemplo3_grafico.png)
+![](imagens/exemplo3_grafico.png)
 ### Exemplo 4
 ```
 Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](./docs_imagens/exemplo4_grafico.png)
+![](imagens/exemplo4_grafico.png)
 
 ### Calcula valores
 
