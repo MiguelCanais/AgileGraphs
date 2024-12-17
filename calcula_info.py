@@ -6,7 +6,8 @@ OPERADORES = ["+", "-", "*", "/", "(", ")"]
 
 ALIASES = {
     "dr": "demonstracaoResultados",
-    "hr": "recursosHumanos",
+    "rh": "recursosHumanos",
+    "qm": "quotasMercado",
 
     "emp1": "empresa1",
     "emp2": "empresa2",
@@ -15,6 +16,14 @@ ALIASES = {
     "emp5": "empresa5",
     "emp6": "empresa6",
     "emp7": "empresa7",
+
+    "prod1": "produto1",
+    "prod2": "produto2",
+    "prod3": "produto3",
+    "prod4": "produto4",
+    "prod5": "produto5",
+    "prod6": "produto6",
+    "prod7": "produto7",
 }
 
 NUMERO_RELATORIOS = len(RELATORIOS)

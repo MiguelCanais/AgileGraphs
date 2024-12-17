@@ -1,8 +1,7 @@
 from openpyxl import load_workbook
 from dados_celulas import dados_relatorio
-from utils import RELATORIOS
+from utils import RELATORIOS_DIRECTORY, RELATORIOS
 
-RELATORIOS_DIRECTORY = "./relatorios/"
 relatorios_loaded = [load_workbook(RELATORIOS_DIRECTORY + relatorio + '.xlsx') for relatorio in RELATORIOS]
 
 

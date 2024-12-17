@@ -11,7 +11,7 @@ def obtemChaves(dados):
 
     for v in dados.values():
         if type(v) is dict:
-            chaves += list(obtemChaves(v))
+            chaves += obtemChaves(v)
 
     return list(set(chaves))
 

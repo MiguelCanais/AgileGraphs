@@ -3,6 +3,7 @@ from graficos import criaGraficos
 from calcula_info import calculaInfo, ehExpressaoValida
 from prompt import obtemInputExpressao
 
+
 def obtemInput(promptText, inputValido: list[str] = []) -> str:
     """
     Obtem input do utilizador e verifica que o input é
@@ -89,7 +90,7 @@ def mostraValoresPrompt():
     print("mostra valores ainda está em desenvolvimento, atualmente não faz nada")
     print("\nInsira expressão para mostrar (q para sair):")
     while True:
-        userInput = obtemInput()
+        userInput = obtemInput('> ')
         if userInput == "q" or userInput == "":
             return
 
@@ -122,5 +123,5 @@ def prompt():
 
         print()
 
-        userInput = obtemInput("", OPCOES)
+        userInput = obtemInput("> ", OPCOES)
         OPCOES[userInput]["funcao"]()

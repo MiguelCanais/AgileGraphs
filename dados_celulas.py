@@ -1,32 +1,32 @@
 dados_relatorio = {
     "pedidos": {
-        "prod1": "1AA12",
-        "prod2": "1AC12",
-        "prod3": "1AE12",
+        "produto1": "1AA12",
+        "produto2": "1AC12",
+        "produto3": "1AE12",
     },
 
     "produzidos": {
-        "prod1": "1AA13",
-        "prod2": "1AC13",
-        "prod3": "1AE13",
+        "produto1": "1AA13",
+        "produto2": "1AC13",
+        "produto3": "1AE13",
     },
 
     "rejeitados": {
-        "prod1": "1AA14",
-        "prod2": "1AC14",
-        "prod3": "1AE14",
+        "produto1": "1AA14",
+        "produto2": "1AC14",
+        "produto3": "1AE14",
     },
 
     "destruidos": {
-        "prod1": "1AA15",
-        "prod2": "1AC15",
-        "prod3": "1AE15",
+        "produto1": "1AA15",
+        "produto2": "1AC15",
+        "produto3": "1AE15",
     },
 
     "reparados": {
-        "prod1": "1AA45",
-        "prod2": "1AC45",
-        "prod3": "1AE45",
+        "produto1": "1AA45",
+        "produto2": "1AC45",
+        "produto3": "1AE45",
     },
 
 
@@ -48,43 +48,43 @@ dados_relatorio = {
         "visitas": "1J52",
         "tentativasFalhadas": "1J53",
         "reclamacoes": {
-            "prod1": "1AA48",
-            "prod2": "1AC48",
-            "prod3": "1AE48",
+            "produto1": "1AA48",
+            "produto2": "1AC48",
+            "produto3": "1AE48",
         },
     },
 
     "entregas": {
-        "prod1": {
+        "produto1": {
             "ue": "1AA18",
             "nafta": "1AA19",
             "internet": "1AA20",
         },
-        "prod2": {
+        "produto2": {
             "ue": "1AC18",
             "nafta": "1AC19",
             "internet": "1AC20",
         },
-        "prod3": {
+        "produto3": {
             "ue": "1AE18",
             "nafta": "1AE19",
             "internet": "1AE20",
         },
     },
 
-    # A quantidade de produtos requesitados
+    # A quantidade de produtoutos requesitados
     "encomendas": {
-        "prod1": {
+        "produto1": {
             "ue": "1AA23",
             "nafta": "1AA24",
             "internet": "1AA25",
         },
-        "prod2": {
+        "produto2": {
             "ue": "1AC23",
             "nafta": "1AC24",
             "internet": "1AC25",
         },
-        "prod3": {
+        "produto3": {
             "ue": "1AE23",
             "nafta": "1AE24",
             "internet": "1AE25",
@@ -93,17 +93,17 @@ dados_relatorio = {
 
     # A quantidade de vendas
     "vendas": {
-        "prod1": {
+        "produto1": {
             "ue": "1AA28",
             "nafta": "1AA29",
             "internet": "1AA30",
         },
-        "prod2": {
+        "produto2": {
             "ue": "1AC28",
             "nafta": "1AC29",
             "internet": "1AC30",
         },
-        "prod3": {
+        "produto3": {
             "ue": "1AE28",
             "nafta": "1AE29",
             "internet": "1AE30",
@@ -111,32 +111,32 @@ dados_relatorio = {
     },
 
     "encomendasAtraso": {
-        "prod1": {
+        "produto1": {
             "ue": "1AA33",
             "nafta": "1AA34",
         },
-        "prod2": {
+        "produto2": {
             "ue": "1AC33",
             "nafta": "1AC34",
         },
-        "prod3": {
+        "produto3": {
             "ue": "1AE33",
             "nafta": "1AE34",
         },
     },
 
     "inventario": {
-        "prod1": {
+        "produto1": {
             "ue": "1AA37",
             "nafta": "1AA38",
             "internet": "1AA39",
         },
-        "prod2": {
+        "produto2": {
             "ue": "1AC37",
             "nafta": "1AC38",
             "internet": "1AC39",
         },
-        "prod3": {
+        "produto3": {
             "ue": "1AE37",
             "nafta": "1AE38",
             "internet": "1AE39",
@@ -144,17 +144,17 @@ dados_relatorio = {
     },
 
     "precos": {
-        "prod1": {
+        "produto1": {
             "ue": "1G16",
             "nafta": "1G17",
             "internet": "1G18",
         },
-        "prod2": {
+        "produto2": {
             "ue": "1J16",
             "nafta": "1J17",
             "internet": "1J18",
         },
-        "prod3": {
+        "produto3": {
             "ue": "1M16",
             "nafta": "1M17",
             "internet": "1M18",
@@ -162,17 +162,17 @@ dados_relatorio = {
     },
 
     "publicidade": {
-        "prod1": {
+        "produto1": {
             "ue": "1G21",
             "nafta": "1G22",
             "internet": "1G23",
         },
-        "prod2": {
+        "produto2": {
             "ue": "1J21",
             "nafta": "1J22",
             "internet": "1J23",
         },
-        "prod3": {
+        "produto3": {
             "ue": "1M21",
             "nafta": "1M22",
             "internet": "1M23",
@@ -185,15 +185,15 @@ dados_relatorio = {
     },
 
     "tempoMontagem": {
-        "prod1": "1G25",
-        "prod2": "1J25",
-        "prod3": "1M25",
+        "produto1": "1G25",
+        "produto2": "1J25",
+        "produto3": "1M25",
     },
 
     "investigacao": {
-        "prod1": "1G27",
-        "prod2": "1J27",
-        "prod3": "1M27",
+        "produto1": "1G27",
+        "produto2": "1J27",
+        "produto3": "1M27",
     },
 
     "montagem": {
@@ -295,7 +295,7 @@ dados_relatorio = {
         "ativoFixoTangivel": "2Q6",
         "maquinas": "2Q7",
         "ativoNaoCorrente": "2R8",
-        "inventarioProdutos": "2R9",
+        "inventarioprodutoutos": "2R9",
         "inventarioMateriaPrima": "2R10",
         "clientes": "2R11",
         "depositosBancarios": "2R12",
@@ -325,119 +325,119 @@ dados_relatorio = {
 
     "quotasMercado": {
         "empresa1": {
-            "prod1": {
+            "produto1": {
                 "ue": "2Q32",
                 "nafta": "2Q33",
                 "internet": "2Q34",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2Q35",
                 "nafta": "2Q36",
                 "internet": "2Q37",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2Q38",
                 "nafta": "2Q39",
                 "internet": "2Q40",
             },
         },
         "empresa2": {
-            "prod1": {
+            "produto1": {
                 "ue": "2R32",
                 "nafta": "2R33",
                 "internet": "2R34",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2R35",
                 "nafta": "2R36",
                 "internet": "2R37",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2R38",
                 "nafta": "2R39",
                 "internet": "2R40",
             },
         },
         "empresa3": {
-            "prod1": {
+            "produto1": {
                 "ue": "2S32",
                 "nafta": "2S33",
                 "internet": "2S34",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2S35",
                 "nafta": "2S36",
                 "internet": "2S37",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2S38",
                 "nafta": "2S39",
                 "internet": "2S40",
             },
         },
         "empresa4": {
-            "prod1": {
+            "produto1": {
                 "ue": "2T32",
                 "nafta": "2T33",
                 "internet": "2T34",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2T35",
                 "nafta": "2T36",
                 "internet": "2T37",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2T38",
                 "nafta": "2T39",
                 "internet": "2T40",
             },
         },
         "empresa5": {
-            "prod1": {
+            "produto1": {
                 "ue": "2U32",
                 "nafta": "2U33",
                 "internet": "2U34",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2U35",
                 "nafta": "2U36",
                 "internet": "2U37",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2U38",
                 "nafta": "2U39",
                 "internet": "2U40",
             },
         },
         "empresa6": {
-            "prod1": {
+            "produto1": {
                 "ue": "2V32",
                 "nafta": "2V33",
                 "internet": "2V34",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2V35",
                 "nafta": "2V36",
                 "internet": "2V37",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2V38",
                 "nafta": "2V39",
                 "internet": "2V40",
             },
         },
         "empresa7": {
-            "prod1": {
+            "produto1": {
                 "ue": "2W32",
                 "nafta": "2W33",
                 "internet": "2W34",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2W35",
                 "nafta": "2W36",
                 "internet": "2W37",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2W38",
                 "nafta": "2W39",
                 "internet": "2W40",
@@ -569,119 +569,119 @@ dados_relatorio = {
 
     "precosEmpresas": {
         "empresa1": {
-            "prod1": {
+            "produto1": {
                 "ue": "2D38",
                 "nafta": "2D39",
                 "internet": "2D40",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2D41",
                 "nafta": "2D42",
                 "internet": "2D43",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2D44",
                 "nafta": "2D45",
                 "internet": "2D46",
             },
         },
         "empresa2": {
-            "prod1": {
+            "produto1": {
                 "ue": "2E38",
                 "nafta": "2E39",
                 "internet": "2E40",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2E41",
                 "nafta": "2E42",
                 "internet": "2E43",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2E44",
                 "nafta": "2E45",
                 "internet": "2E46",
             },
         },
         "empresa3": {
-            "prod1": {
+            "produto1": {
                 "ue": "2F38",
                 "nafta": "2F39",
                 "internet": "2F40",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2F41",
                 "nafta": "2F42",
                 "internet": "2F43",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2F44",
                 "nafta": "2F45",
                 "internet": "2F46",
             },
         },
         "empresa4": {
-            "prod1": {
+            "produto1": {
                 "ue": "2G38",
                 "nafta": "2G39",
                 "internet": "2G40",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2G41",
                 "nafta": "2G42",
                 "internet": "2G43",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2G44",
                 "nafta": "2G45",
                 "internet": "2G46",
             },
         },
         "empresa5": {
-            "prod1": {
+            "produto1": {
                 "ue": "2H38",
                 "nafta": "2H39",
                 "internet": "2H40",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2H41",
                 "nafta": "2H42",
                 "internet": "2H43",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2H44",
                 "nafta": "2H45",
                 "internet": "2H46",
             },
         },
         "empresa6": {
-            "prod1": {
+            "produto1": {
                 "ue": "2I38",
                 "nafta": "2I39",
                 "internet": "2I40",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2I41",
                 "nafta": "2I42",
                 "internet": "2I43",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2I44",
                 "nafta": "2I45",
                 "internet": "2I46",
             },
         },
         "empresa7": {
-            "prod1": {
+            "produto1": {
                 "ue": "2J38",
                 "nafta": "2J39",
                 "internet": "2J40",
             },
-            "prod2": {
+            "produto2": {
                 "ue": "2J41",
                 "nafta": "2J42",
                 "internet": "2J43",
             },
-            "prod3": {
+            "produto3": {
                 "ue": "2J44",
                 "nafta": "2J45",
                 "internet": "2J46",
