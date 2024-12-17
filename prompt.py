@@ -2,9 +2,9 @@ from prompt_toolkit import PromptSession
 from prompt_toolkit.key_binding import KeyBindings
 
 from dados_celulas import dados_relatorio
+from utils import maiorPrefixoComum, ALIASES
 
 kb = KeyBindings()
-
 
 def obtemChaves(dados):
     chaves = list(dados.keys())
@@ -16,30 +16,6 @@ def obtemChaves(dados):
     return list(set(chaves))
 
 
-def maiorPrefixoComum(l):
-    """
-    Dado uma lista de strings encontra o maior prefix comum a todas
-    as strings
-
-    Por exemplo:
-    l = ["prod1", "prod2", "prod3"]
-    O maior prefixo comum é "prod"
-    """
-    i = 0
-    while True:
-        letra = 0
-        for s in l:
-            if len(s) == i:
-                return s
-
-            if letra == 0:
-                letra = s[i]
-            elif s[i] != letra:
-                return s[:i]
-
-        i += 1
-
-
 def obtemAutocomplete(expressao):
     if expressao == "":
         return ""
@@ -48,18 +24,21 @@ def obtemAutocomplete(expressao):
 
     dados = dados_relatorio
 
-    possiveis = []
+    possiveis = ["ALL"]
 
     for arg in args[:-1]:
-        if type(dados[arg]) is not dict:
-            return ""
+        if arg in ALIASES:
+            arg = ALIASES[arg]
 
         if arg not in dados:
             return ""
 
+        if type(dados[arg]) is not dict:
+            return ""
+
         dados = dados[arg]
 
-    possiveis = obtemChaves(dados)
+    possiveis += obtemChaves(dados)
     prefix = args[-1]
     valid = []
 

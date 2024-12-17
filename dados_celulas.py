@@ -323,6 +323,16 @@ dados_relatorio = {
         "empresa7": "2J32",
     },
 
+    "dividendos": {
+        "empresa1": "2D33",
+        "empresa2": "2E33",
+        "empresa3": "2F33",
+        "empresa4": "2G33",
+        "empresa5": "2H33",
+        "empresa6": "2I33",
+        "empresa7": "2J33",
+    },
+
     "quotasMercado": {
         "empresa1": {
             "produto1": {
@@ -746,5 +756,30 @@ dados_relatorio = {
             "investigacao": "2J54",
             "eficienciaWebsite": "2J59"
         },
+    },
+
+    "despesasAdminstrativas": {
+        "publicidade": "2D5",
+        "distribuidorInternet": "2D6",
+        "fornecedorServicoInternet": "2D7",
+        "distribuidores": "2D8",
+        "departamentoVendas": "2D9",
+        "servicoGarantia": "2D10",
+        "transportes": "2D11",
+        "investigacao": "2D12",
+        "desenvolvimentoWebsite": "2D13",
+        "recrutamento": "2D14",
+        "conservacaoMaquinas": "2D15",
+        "armazenagem": "2D16",
+        "informacoes": "2D17",
+        "cobrancaVendas": "2D18",
+        "premiosSeguros": "2D19",
+        "gestao": "2D20",
+        "outros": "2D21",
+        "total": "2D22",
+        "impostos": "2D23",
+        "lucroTributavel": "2D24",
+        "participacaoSeguro": "2D26",
+        "franquia": "2D27",
     },
 }

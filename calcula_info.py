@@ -1,32 +1,8 @@
 from numpy import nan
 from obtem_valor import obtemValor, obtemValorEspecifico
-from utils import RELATORIOS
+from utils import RELATORIOS, NUMERO_RELATORIOS, ALIASES
 
 OPERADORES = ["+", "-", "*", "/", "(", ")"]
-
-ALIASES = {
-    "dr": "demonstracaoResultados",
-    "rh": "recursosHumanos",
-    "qm": "quotasMercado",
-
-    "emp1": "empresa1",
-    "emp2": "empresa2",
-    "emp3": "empresa3",
-    "emp4": "empresa4",
-    "emp5": "empresa5",
-    "emp6": "empresa6",
-    "emp7": "empresa7",
-
-    "prod1": "produto1",
-    "prod2": "produto2",
-    "prod3": "produto3",
-    "prod4": "produto4",
-    "prod5": "produto5",
-    "prod6": "produto6",
-    "prod7": "produto7",
-}
-
-NUMERO_RELATORIOS = len(RELATORIOS)
 
 
 def ehVariavel(termo: str) -> bool:

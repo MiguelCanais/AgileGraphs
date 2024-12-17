@@ -2,49 +2,24 @@
 Programa de análise de dados para o Jogo de Gestão IST Management Challenge.
 Feito pela equipa AGILE team.
 
+![Preview](grafico_exemplo.png)
 
-```
-```
+## Introdução
+AgileGraphs oferece uma interface de terminal para criar gráficos e calcular valores
+relativos aos relatórios de uma empresa do Jogo de Gestão IST Management Challenge.
 
-## Feito
-- renomear relatórios para números 
-- multiplas linhas no mesmo gráfico
-- implementar segunda folha
-- adicionar aliases às expressoes
-- interface CLI
-- expanção ALL
-- acesso direto a celúlas
-    1AA32:
-    2U12:
-- aceder a valores de outros trimestres
-    :~2:vendas:prod1
-    :+2:vendas:prod1
-    :2:vendas:prod1
-- escrever os erros
-- fix bugs with ALL
-- introduzir numbered ALLs, 1ALL, 2ALL
-- historico?
-- autocomplete?
+Existem três modos:
+- [Cria Gráficos]
+- [Calcula Valores]
+- [Mostra Valores]
+
+![Preview](prompt_exemplo.png)
 
 
-## TODO
-- atualizar cli.py, prompt de input devia ser alterada
-- remove title parameter from criaGraficos
-- trocar prodX por produtoX e criar aliases
-- bugs with autocomplete
-- bug with aliases and autocomplete
-- bug with mostraValores
-- por o mostraValores a funcionar
-- documentação
-- integrar o resto dos dados
-- seleção de cores para os graficos ?
 
-
-## Documentação
-
-
-### Instalação
-Podes usar o script de instalação que está localizado na pasta AgileGraphs.
+## Instalação
+A maneira mais fácil de instalar é correr o script de instalação com
+o comando seguinte:
 ```bash
 source ./install.sh
 ```
@@ -368,3 +343,35 @@ Nada de assentos ou 'ç'.
 ### Ficheiros
 
 
+## Feito
+- renomear relatórios para números 
+- multiplas linhas no mesmo gráfico
+- implementar segunda folha
+- adicionar aliases às expressoes
+- interface CLI
+- expanção ALL
+- acesso direto a celúlas
+    1AA32:
+    2U12:
+- aceder a valores de outros trimestres
+    :~2:vendas:prod1
+    :+2:vendas:prod1
+    :2:vendas:prod1
+- escrever os erros
+- fix bugs with ALL
+- introduzir numbered ALLs, 1ALL, 2ALL
+- historico?
+- autocomplete?
+
+
+## TODO
+- atualizar cli.py, prompt de input devia ser alterada
+- remove title parameter from criaGraficos
+- trocar prodX por produtoX e criar aliases
+- bugs with autocomplete
+- bug with aliases and autocomplete
+- bug with mostraValores
+- por o mostraValores a funcionar
+- documentação
+- integrar o resto dos dados
+- seleção de cores para os graficos ?

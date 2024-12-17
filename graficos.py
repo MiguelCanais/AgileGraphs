@@ -10,9 +10,9 @@ def configuraGrafico(maximo, minimo) -> None:
     amplitude = maximo - minimo
 
     upperlimit = maximo + amplitude * 0.2
-    lowerlimit = minimo - amplitude * 0.4
+    lowerlimit = minimo - amplitude * 0.3
 
-    plt.xlabel("Trimestres")
+    plt.xlabel("Relatorios")
     plt.legend(loc="lower left", fontsize=10)
     plt.ylim(bottom=lowerlimit, top=upperlimit)
     plt.axhline(y=0, color="red", linewidth=1, linestyle="--", label="y=0 line")
