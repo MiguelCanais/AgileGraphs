@@ -2,18 +2,18 @@
 Programa de análise de dados para o Jogo de Gestão IST Management Challenge.
 Feito pela equipa AGILE team.
 
-![Preview](grafico_exemplo.png)
+![Preview](imagens/grafico_exemplo.png)
 
 ## Introdução
 AgileGraphs oferece uma interface de terminal para criar gráficos e calcular valores
 relativos aos relatórios de uma empresa do Jogo de Gestão IST Management Challenge.
 
 Existem três modos:
-- [Cria Gráficos]
-- [Calcula Valores]
-- [Mostra Valores]
+- Cria Gráficos
+- Calcula Valores
+- Mostra Valores
 
-![Preview](prompt_exemplo.png)
+![Preview](imagens/prompt_exemplo.png)
 
 
 
