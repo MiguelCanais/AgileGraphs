@@ -15,20 +15,26 @@ Existem três modos:
 
 
 ## Instalação
-A maneira mais fácil de instalar é correr o script de instalação com
+A maneira mais fácil de instalar em Linux/Mac é correr o script de instalação com
 o comando seguinte:
 ```bash
 source ./install.sh
 ```
-É preciso também colocar os relatórios da empresa no diretório `relatorios/`
-Se este diretório não existir pode criá-lo com este comando:
+
+Se estiver a usar Windows terá de instalar manualmente com o comando:
+```bash
+pip3 install -r requirements.txt
+```
+
+É preciso também colocar os relatórios da empresa no diretório `relatorios/`.
+Se este diretório não existir pode criá-lo com o comando:
 ```bash
 mkdir relatorios
 ```
 
 
 ## Como utilizar
-Para utilizar o programa tem de ter o ambiente virtual inicializado, pode o inicializar com o seguinte comando:
+(Linux/Mac) Para utilizar o programa tem de ter o ambiente virtual inicializado, pode o inicializar com o seguinte comando:
 ```bash
 source venv/bin/activate
 ```
@@ -50,7 +56,7 @@ Escolha uma opção:
 
 >
 ```
-Em qualquer modo pode dar 'q' como input para sair do programa ou retroceder ao menu inicial.
+Em qualquer modo pode inserir 'q' ou 'Enter' para sair do programa ou retroceder ao menu inicial.
 
 
 ## Expressões:
@@ -62,6 +68,9 @@ vendas:produto1:ue
 vendas:ue
 vendas
 quotasMercado:empresa7:nafta
+produzidos:ALL // Irá criar um gráfico da quantidade produzida para cada produto
+acoes:ALL   // Irá criar um gráfico para cada empresa das suas acoes 
+quotasMercado:ALL:internet  // Irá criar um gráfico para cada empresa das suas quotas de mercado na internet
 demonstracaoResultados:lucro
 (vendas:produto2 - encomendas:produto2) + 100 - 100 / 1
 (produzidos:produto1 - vendas:produto1) / produzidos:produto1

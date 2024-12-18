@@ -117,5 +117,5 @@ def obtemValor(variavel: str, relatorio: int) -> int | float:
 
 
 RELATORIOS = loadRelatorios()
-NOME_RELATORIOS = [f"Relatorio{obtemTrimestre(x)}" for x in RELATORIOS]
+NOME_RELATORIOS = [f"R{obtemTrimestre(x)}" for x in RELATORIOS]
 NUMERO_RELATORIOS = len(RELATORIOS)
