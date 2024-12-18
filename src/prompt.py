@@ -1,8 +1,9 @@
 from prompt_toolkit import PromptSession
 from prompt_toolkit.key_binding import KeyBindings
 
+from calcula_info import parseExpressao, traduzExpressao, ehVariavel
 from dados_celulas import dados_relatorio
-from utils import maiorPrefixoComum, ALIASES
+from utils import maiorPrefixoComum
 
 kb = KeyBindings()
 
@@ -19,17 +20,17 @@ def obtemChaves(dados):
 def obtemAutocomplete(expressao):
     if expressao == "":
         return ""
-    ultimo = expressao.split(" ")[-1]
+
+    parsed = parseExpressao(expressao)
+    ultimo = traduzExpressao(parsed)[-1]
+
+    if not ehVariavel(ultimo): return ""
+
     args = ultimo.split(":")
 
     dados = dados_relatorio
 
-    possiveis = ["ALL"]
-
     for arg in args[:-1]:
-        if arg in ALIASES:
-            arg = ALIASES[arg]
-
         if arg not in dados:
             return ""
 
@@ -38,8 +39,14 @@ def obtemAutocomplete(expressao):
 
         dados = dados[arg]
 
-    possiveis += obtemChaves(dados)
     prefix = args[-1]
+    if prefix in dados and type(dados[prefix]) is dict:
+        return ":"
+
+    # Todas as possiveis strings para autocomplete
+    possiveis = ["ALL"]
+    possiveis += obtemChaves(dados)
+
     valid = []
 
     for k in possiveis:
@@ -57,7 +64,7 @@ def obtemAutocomplete(expressao):
 @kb.add("tab")
 def _(event):
     buffer = event.app.current_buffer
-    autocomplete = obtemAutocomplete(buffer.text[: buffer.cursor_position])
+    autocomplete = obtemAutocomplete(buffer.text[:buffer.cursor_position])
     buffer.insert_text(autocomplete)
 
 
