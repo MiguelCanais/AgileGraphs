@@ -47,7 +47,7 @@ Escolha uma opção:
 
 >
 ```
-Em qualquer modo pode pressionar 'q' para sair do programa ou retroceder ao menu inicial.
+Em qualquer modo pode dar 'q' como input para sair do programa ou retroceder ao menu inicial.
 
 
 ## Expressões:
@@ -69,24 +69,24 @@ vendas:aaaaaaa:ue
 vendas:ue:produto1 
 owadpaaÇWIAJdçawjd ola
 ```
-Uma expressão é uma string que comtém os operadores '+', '-', '*', '/', '(' e ')', espaços, variaveis e valores numéricos (inteiros ou floats).
-Quando uma expressão é avaliada todas as variaveis são substituidas pelo seu valor numérico correspondente e é calculado o resultado da expressão (que agora só contêm números e operadores) de acordo com as regras normais de aritmética.
+Uma expressão é uma string que contém os operadores '+', '-', '*', '/', '(' e ')', espaços, variáveis e valores numéricos (inteiros ou floats).
+Quando uma expressão é avaliada todas as variáveis são substituídas pelo seu valor numérico correspondente e é calculado o resultado da expressão (que agora só contêm números e operadores) de acordo com as regras normais de aritmética.
 
-As variaveis são substituidas pelos valores correspondentes a um dado relatório.
+As variáveis são substituídas pelos valores correspondentes a um dado relatório.
 
 
 ### Variáveis
 
-Uma variavel é qualquer string que não contem espaços ou operadores e não é um número.
-Uma variavel é uma forma de especificar mais facilmente células especificas dos relatórios.
+Uma variável é qualquer string que não contem espaços ou operadores e não é um número.
+Uma variável é uma forma de especificar mais facilmente células especificas dos relatórios.
 
-A syntax básica de uma variavel é:
+A syntax básica de uma variável é:
 ```
     <chave1> ou <chave1>:<chave2> ou <chave1>: ... :<chave2>.
 ```
 Ou seja, strings separadas por ':'.
 
-Se uma expressão conter variaveis inválidas esta será totalmente ignorada.
+Se uma expressão conter variáveis inválidas, esta será totalmente ignorada.
 ```
 > kajçslkdjçlaskjdf
 Expressao inválida - 'kajçslkdjçlaskjdf' está mal escrito.
@@ -100,7 +100,7 @@ quotasMercado:empresa7:prod1:nafta         |  As quotas de mercado da empresa7 n
 recursosHumanos:disponivel:especializados  |  O número de operários especializados disponíveis
 ```
 
-No caso da variaveis 'entregas:produto1:ue', as suas chaves são 'entregas', 'produto1' e 'ue'.
+No caso da variáveis 'entregas:produto1:ue', as suas chaves são 'entregas', 'produto1' e 'ue'.
 
 É importante notar que nenhuma variável usa assentos ou 'ç'.
 
@@ -138,7 +138,7 @@ transportes:distanciaViagem:internet
 ### Aliases
 
 É possível escrever de forma resumida algumas chaves de uma variável usando aliases.
-Os aliases disponíveis estão defenidos no dicionáro `ALIASES` que está presente no ficheiro `calcula_info.py`.
+Os aliases disponíveis estão definidos no dicionário `ALIASES` que está presente no ficheiro `calcula_info.py`.
 Alguns exemplos:
 ```
 dr:compraMateriaPrima  ->  demonstracaoResultados:compraMateriaPrima
@@ -146,17 +146,17 @@ qm:emp7:prod1:ue       ->  quotasMercado:empresa7:produto1:ue
 ```
 
 
-A expanção dos aliases é feita antes das expressões serem avaliadas.
-No resto da documentação aliases são usados por motivos de praticalidade, o programa em si nunca os utiliza internamente.
+A expansão dos aliases é feita antes das expressões serem avaliadas.
+No resto da documentação aliases são usados por motivos de praticabilidade, o programa em si nunca os utiliza internamente.
 
 
-### Omição de chaves da variavel
+### Omissão de chaves da variável
 
 Imagine que quer saber a soma das vendas do produto1 em todos os mercado.
 Escrever `vendas:prod1 + vendas:prod1:nafta + vendas:prod1:internet` dá muito trabalho.
 É por isso que é possível simplesmente escrever `vendas:prod1`.
 
-Quando o valor desta variavel for calculado será feita a soma de todas as suas expanssões.
+Quando o valor desta variável for calculado será feita a soma de todas as suas expansões.
 
 Alguns exemplos:
 ```
@@ -187,7 +187,7 @@ Pode usar um prefixo de relatório na variável, estes seguem a seguinte syntax:
 
 #### Aceder a relatórios posteriores
 
-Para aceder a um relatório posterior o prefixo será somemte um número inteiro (o símbolo será vazio).
+Para aceder a um relatório posterior o prefixo será somente um número inteiro (o símbolo será vazio).
 
 Exemplos:
 ```
@@ -211,7 +211,7 @@ Funciona da mesma forma que aceder a relatórios posteriores, mas ao contrário.
 
 #### Aceder a um relatório especifico
 
-Se quiser o valor de uma variável num relatório especifico o símolo será '#'.
+Se quiser o valor de uma variável num relatório especifico o símbolo será '#'.
 
 Exemplos:
 ```
@@ -222,14 +222,14 @@ Exemplos:
 
 ### Expanção ALL
 
-Imagine que quer fazer o gráfico de vendas de todos os produtos no merado da nafta, escrever:
+Imagine que quer fazer o gráfico de vendas de todos os produtos no mercado da nafta, escrever:
 ```
 > vendas:prod1:nafta
 > vendas:prod2:nafta
 > vendas:prod3:nafta
 ```
 Dá trabalho, então pode só usar `vendas:ALL:nafta`.
-Esta expanção é feita antes das expressões seram avaliadas.
+Esta expansão é feita antes das expressões serão avaliadas.
 Alguns exemplos:
 ```
 entregas:ALL            ->  entregas:prod1,  entregas:prod2,   entregas:prod3
@@ -244,7 +244,7 @@ website:ALL:prod1       ->  dá erro, embora website:reclamacoes:prod1 exista, w
 ```
  
 
-### Expanssão ALLn
+### Expansão ALLn
 
 Imagine que quer saber a variação das vendas de todos os produtos (individualmente) ao longo dos relatórios (trimestres) em percentagem.
 Terias de repetir três vezes a expressão `(vendas:prod1 - :\~1:vendas:prod1) * 100 / :\~1:vendas:prod1`, pode usar 
@@ -271,7 +271,7 @@ vendas:ALL1 * website:ALL1   ->  dá erro, website:prod1 não existe.
 
 ### Aceder diretamente a células
 
-Podes aceder ao valor de um célula de uma folha de exel especifica usando a seguinte syntax:
+Podes aceder ao valor de uma célula de uma folha de exel especifica usando a seguinte syntax:
 ```
     <folha><coluna><linha>:
 ```
@@ -288,7 +288,7 @@ Se uma célula estiver em branco o seu valor é 0.
 
 ## Cria gráficos
 
-Este modo aceita várias expressoes, quando tentar voltar para o menu original ele irá mostrar um gráfico com os valores das expressões introduzidas para cada relatório para o qual as expressões sejam validas. Caso nenhuma expressão seja introduzida irá imediatamente voltar para o menu inicial.
+Este modo aceita várias expressões, quando tentar voltar para o menu original ele irá mostrar um gráfico com os valores das expressões introduzidas para cada relatório para o qual as expressões sejam validas. Caso nenhuma expressão seja introduzida irá imediatamente voltar para o menu inicial.
 
 ### Exemplo 1
 ```
@@ -332,7 +332,7 @@ Insira expressões para gráficos (q para parar):
 
 ## Calcula valores
 
-Este modo escreve o valor numerico da expressão dada em relação ao ultimo relatório para o qual a expressão é válida.
+Este modo escreve o valor numérico da expressão dada em relação ao último relatório para o qual a expressão é válida.
 ```
 Insira expressão para calcular (q para sair):
 > vendas:prod1:ue * 2 - 100 + 0.2
@@ -367,12 +367,12 @@ Uma string que representa uma expressão introduzida pelo utilizador.
 #### expressao
 
 Lista de strings, onde cada string é um operador ou uma variável.
-Todos os aliases já foram substituidos.
-Todos os ALL e ALLn já forma substituidos
+Todos os aliases já foram substituídos.
+Todos os ALL e ALLn já forma substituídos
 
 `['vendas:produto1', '-', ':~1:entregas:produto2']`
 
-#### variavel
+#### variável
 
 Uma string que representa uma variável isolada.
 
@@ -400,12 +400,12 @@ Nada de assentos ou 'ç'.
 
 ## Feito
 - renomear relatórios para números 
-- multiplas linhas no mesmo gráfico
+- múltiplas linhas no mesmo gráfico
 - implementar segunda folha
-- adicionar aliases às expressoes
+- adicionar aliases às expressões
 - interface CLI
-- expanção ALL
-- acesso direto a celúlas
+- expansão ALL
+- acesso direto a células
     1AA32:
     2U12:
 - aceder a valores de outros trimestres
@@ -415,7 +415,7 @@ Nada de assentos ou 'ç'.
 - escrever os erros
 - fix bugs with ALL
 - introduzir numbered ALLs, 1ALL, 2ALL
-- historico
+- histórico
 - autocomplete
 - documentação
 - integrar o resto dos dados
