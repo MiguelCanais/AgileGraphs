@@ -2,7 +2,7 @@
 Programa de análise de dados para o Jogo de Gestão IST Management Challenge.
 Feito pela equipa AGILE team.
 
-![Preview](imagens/grafico_exemplo.png)
+![Preview](imagens/exemplo3_grafico.png)
 
 ## Introdução
 AgileGraphs oferece uma interface de terminal para criar gráficos e calcular valores
@@ -12,8 +12,6 @@ Existem três modos:
 - Cria Gráficos
 - Calcula Valores
 - Mostra Valores
-
-![Preview](imagens/prompt_exemplo.png)
 
 
 ## Instalação
@@ -295,21 +293,24 @@ Este modo aceita várias expressoes, quando tentar voltar para o menu original e
 ### Exemplo 1
 ```
 Insira expressões para gráficos (q para parar):
-> (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
+> vendas:prod1
+> vendas:prod1 + 200
 >
 ```
 ![exemplo1](imagens/exemplo1_grafico.png)
 ### Exemplo 2
 ```
 Insira expressões para gráficos (q para parar):
-> (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
+> entregas
+> :~1:entregas
+> :1:entregas
 >
 ```
-![exemplo2](imagens/exemplo3_grafico.png)
+![exemplo2](imagens/exemplo2_grafico.png)
 ### Exemplo 3
 ```
 Insira expressões para gráficos (q para parar):
-> (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
+> vendas:ALL:ue
 >
 ```
 ![exemplo3](imagens/exemplo3_grafico.png)
@@ -320,8 +321,16 @@ Insira expressões para gráficos (q para parar):
 >
 ```
 ![exemplo4](imagens/exemplo4_grafico.png)
+### Exemplo 5
+```
+Insira expressões para gráficos (q para parar):
+> qm:emp7:prod3:ue
+> 2W38: + 5
+>
+```
+![exemplo5](imagens/exemplo5_grafico.png)
 
-### Calcula valores
+## Calcula valores
 
 Este modo escreve o valor numerico da expressão dada em relação ao ultimo relatório para o qual a expressão é válida.
 ```
@@ -411,7 +420,7 @@ Nada de assentos ou 'ç'.
 - documentação
 - integrar o resto dos dados
 - trocar prodX por produtoX e criar aliases
-- bugºs with autocomplete
+- bugs with autocomplete
 - bug with aliases and autocomplete
 
 
