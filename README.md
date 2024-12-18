@@ -155,8 +155,8 @@ No resto da documentação aliases são usados por motivos de praticalidade, o p
 ### Omição de chaves da variavel
 
 Imagine que quer saber a soma das vendas do produto1 em todos os mercado.
-Escrever 'vendas:prod1 + vendas:prod1:nafta + vendas:prod1:internet' dá muito trabalho.
-É por isso que é possível simplesmente escrever 'vendas:prod1'.
+Escrever `vendas:prod1 + vendas:prod1:nafta + vendas:prod1:internet` dá muito trabalho.
+É por isso que é possível simplesmente escrever `vendas:prod1`.
 
 Quando o valor desta variavel for calculado será feita a soma de todas as suas expanssões.
 
@@ -230,7 +230,7 @@ Imagine que quer fazer o gráfico de vendas de todos os produtos no merado da na
 > vendas:prod2:nafta
 > vendas:prod3:nafta
 ```
-Dá trabalho, então pode só usar 'vendas:ALL:nafta'.
+Dá trabalho, então pode só usar `vendas:ALL:nafta`.
 Esta expanção é feita antes das expressões seram avaliadas.
 Alguns exemplos:
 ```
@@ -249,8 +249,8 @@ website:ALL:prod1       ->  dá erro, embora website:reclamacoes:prod1 exista, w
 ### Expanssão ALLn
 
 Imagine que quer saber a variação das vendas de todos os produtos (individualmente) ao longo dos relatórios (trimestres) em percentagem.
-Terias de repetir três vezes a expressão '(vendas:prod1 - :\~1:vendas:prod1) * 100 / :\~1:vendas:prod1', pode usar 
-'(vendas:ALL1 - :\~1:vendas:ALL1) * 100 / :\~1:vendas:ALL1'.
+Terias de repetir três vezes a expressão `(vendas:prod1 - :\~1:vendas:prod1) * 100 / :\~1:vendas:prod1`, pode usar 
+`(vendas:ALL1 - :\~1:vendas:ALL1) * 100 / :\~1:vendas:ALL1`.
 
 Seria igual usar ALL2 ou ALLasçdljf, qualquer string começada por ALL que não contenha operadores, espaços e ':' funcionaria.
 É possível ter ALL1, ALL2 ...  na mesma expressão, cada um é expandido independentemente.
@@ -298,28 +298,28 @@ Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](imagens/exemplo1_grafico.png)
+![exemplo1](imagens/exemplo1_grafico.png)
 ### Exemplo 2
 ```
 Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](imagens/exemplo3_grafico.png)
+![exemplo2](imagens/exemplo3_grafico.png)
 ### Exemplo 3
 ```
 Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](imagens/exemplo3_grafico.png)
+![exemplo3](imagens/exemplo3_grafico.png)
 ### Exemplo 4
 ```
 Insira expressões para gráficos (q para parar):
 > (encomendas:ALL1 - :~1:encomendas:ALL1) * 100  / :~1:encomendas:ALL1
 >
 ```
-![](imagens/exemplo4_grafico.png)
+![exemplo4](imagens/exemplo4_grafico.png)
 
 ### Calcula valores
 
@@ -349,17 +349,44 @@ Esta secção destina-se a potenciais colaboradores ;)
 
 ### Conceitos
 
+#### expressao_raw
 
+Uma string que representa uma expressão introduzida pelo utilizador.
 
+`vendas:prod1 - :~1:entregas:prod2`
+
+#### expressao
+
+Lista de strings, onde cada string é um operador ou uma variável.
+Todos os aliases já foram substituidos.
+Todos os ALL e ALLn já forma substituidos
+
+`['vendas:produto1', '-', ':~1:entregas:produto2']`
+
+#### variavel
+
+Uma string que representa uma variável isolada.
+
+`vendas:produto1` ou `:~1:entregas:produto2`
+
+#### chaves
+
+Uma lista de strings, onde cada string é uma chave da variável.
+
+`['vendas', 'produto1']` ou `['', '~1', 'entregas', 'produto2']`.
+
+Na maioria do programa as chaves '' e '~1' são removidas, então seria só `['entregas', 'produto2']`.
+
+#### relatorio
+
+É um número inteiro que indica o número do relatório para o qual a expressão vai ser calculada.
+Começam em 0.
 
 
 ### Nomes
 
 Usa Pascal case. Por exemplo, calculaInfoExpressao.
 Nada de assentos ou 'ç'.
-
-
-### Ficheiros
 
 
 ## Feito
@@ -384,7 +411,7 @@ Nada de assentos ou 'ç'.
 - documentação
 - integrar o resto dos dados
 - trocar prodX por produtoX e criar aliases
-- bugs with autocomplete
+- bugºs with autocomplete
 - bug with aliases and autocomplete
 
 
