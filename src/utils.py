@@ -1,7 +1,3 @@
-import os
-
-RELATORIOS_DIRECTORY = "./relatorios/"
-
 ALIASES = {
     "dr": "demonstracaoResultados",
     "da": "despesasAdminstrativas",
@@ -46,6 +42,7 @@ def maiorPrefixoComum(l):
 
         i += 1
 
+
 def obtemRelatorios() -> list[str]:
     """
     Obtem uma lista com os nomes de todos os relatorios de cada
@@ -68,5 +65,3 @@ def obtemUltimosRelatorios(n: int = 1) -> list[str]:
     return obtemRelatorios()[-n:]
 
 
-RELATORIOS = obtemRelatorios()
-NUMERO_RELATORIOS = len(RELATORIOS)

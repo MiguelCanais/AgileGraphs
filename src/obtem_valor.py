@@ -1,21 +1,67 @@
-from openpyxl import load_workbook
+import re
+import xlrd
+import os
+
 from dados_celulas import dados_relatorio
-from utils import RELATORIOS_DIRECTORY, RELATORIOS
 
-relatorios_loaded = [load_workbook(RELATORIOS_DIRECTORY + relatorio + '.xlsx') for relatorio in RELATORIOS]
+RELATORIOS_DIRECTORY = "relatorios/"
+
+def loadRelatorios():
+    files = os.listdir(RELATORIOS_DIRECTORY)
+    xls_files = [file for file in files if file.endswith(".Xls")]
+
+    relatorios_loaded = []
+
+    for file in xls_files:
+        worbook = xlrd.open_workbook(RELATORIOS_DIRECTORY+file)
+        relatorios_loaded.append(worbook)
+
+    return sorted(relatorios_loaded, key=lambda x: obtemTrimestre(x))
 
 
-def obtemValorCelula(celula_raw: str, relatorio: int) -> int | float:
-    sheet = "Excel_" + celula_raw[0]
-    celula = celula_raw[1:]
+def obtemCoordenada(celula_raw):
+    pattern = r"(\d)([A-Z]+)(\d+)"
+    match = re.match(pattern,celula_raw)
 
-    if sheet not in ("Excel_1", "Excel_2"):
-        raise ValueError(f"A folha '{sheet}' não existe.")
+    if match:
+        sheetNumero = int(match.group(1))-1
+        letras = match.group(2)
+        numeros = match.group(3)
 
+        coluna = 0 
+        linha = int(numeros)-1
+
+        for letra in letras:
+            coluna = coluna*26 + ord(letra) - ord('A') + 1
+
+        coluna -= 1
+
+        return sheetNumero,linha,coluna
+
+
+def obtemValorCelula(celula_raw: str, relatorio: int) -> int|float:
+    coordenada = obtemCoordenada(celula_raw)
+    
     try:
-        return relatorios_loaded[relatorio][sheet][celula].value
+        sheet = RELATORIOS[relatorio].sheet_by_index(coordenada[0])
+        val = sheet.cell_value(coordenada[1],coordenada[2])
+        return val
     except Exception:
-        raise ValueError(f"A célula {celula} não existe.")
+        raise ValueError(f"A célula {celula_raw} não existe.")
+
+
+
+def obtemTrimestre(relatorio):
+    coordenadaAno = obtemCoordenada("1T3")
+    coordenadaTrimestre = obtemCoordenada("1W3") 
+    sheet = relatorio.sheet_by_index(0)
+
+    ano = int(sheet.cell_value(coordenadaAno[1],coordenadaAno[2]))
+    trimestre = int(sheet.cell_value(coordenadaTrimestre[1],coordenadaTrimestre[2]))
+
+    v = (ano - 2010)*4 + trimestre
+
+    return v
 
 
 def obtemValorEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
@@ -48,13 +94,6 @@ def obtemValorAux(chaves: list[str], relatorio: int) -> int | float:
 
 
 def obtemValor(variavel: str, relatorio: int) -> int | float:
-    """
-    Exemplos de tipo:
-        "vendas" - Calcula o valor de todas as vendas
-        "vendas:prod1" - Calcula o valor de todas as vendas do produto
-        "vendas:ue" -
-        "vendas:prod1:ue"
-    """
     if variavel.startswith(':'):  # acesso a outro relatorio
         chaves = variavel.split(':')
         nova_variavel = ':'.join(chaves[2:])
@@ -75,3 +114,8 @@ def obtemValor(variavel: str, relatorio: int) -> int | float:
     # variavel normal
     chaves = variavel.split(':')
     return obtemValorAux(chaves, relatorio)
+
+
+RELATORIOS = loadRelatorios()
+NOME_RELATORIOS = [f"Relatorio{obtemTrimestre(x)}" for x in RELATORIOS]
+NUMERO_RELATORIOS = len(RELATORIOS)

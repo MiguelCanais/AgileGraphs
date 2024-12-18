@@ -1,6 +1,6 @@
 from numpy import nan
-from obtem_valor import obtemValor, obtemValorEspecifico
-from utils import RELATORIOS, NUMERO_RELATORIOS, ALIASES
+from obtem_valor import obtemValor, obtemValorEspecifico, NOME_RELATORIOS, NUMERO_RELATORIOS
+from utils import ALIASES
 
 OPERADORES = ["+", "-", "*", "/", "(", ")"]
 

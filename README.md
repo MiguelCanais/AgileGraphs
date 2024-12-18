@@ -21,7 +21,10 @@ o comando seguinte:
 source ./install.sh
 ```
 É preciso também colocar os relatórios da empresa no diretório `relatorios/`
-(Os ficheiros devem ser do tipo '.xlsx' e ter o nome 'Relatorio1', 'Relatorio2', etc..).
+Se este diretório não existir pode criá-lo com este comando:
+```bash
+mkdir relatorios
+```
 
 
 ## Como utilizar

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from numpy import nanmax, nanmin
 from calcula_info import calculaInfo
-from utils import RELATORIOS
+from obtem_valor import NOME_RELATORIOS
 
 LINE_COLORS = ["blue", "red", "green", "orange", "purple", "cyan", "black"]
 
@@ -33,7 +33,7 @@ def criaGraficos(expressoes_raw: list[str], title: str = "Grafico") -> None:
         minimo = min(nanmin(info), minimo)
 
         plt.plot(
-            RELATORIOS,
+            NOME_RELATORIOS,
             info,
             label=expressao,
             marker="o",
