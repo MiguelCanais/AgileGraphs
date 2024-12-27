@@ -1,8 +1,8 @@
 from prompt_toolkit import PromptSession
 from prompt_toolkit.key_binding import KeyBindings
 
-from calcula_info import parseExpressao, traduzExpressao, ehVariavel
-from dados_celulas import dados_celulas
+from obtem_valor import obtemDadoEspecifico
+from calcula_info import processaExpressao, ehVariavel
 
 kb = KeyBindings()
 
@@ -44,47 +44,40 @@ def obtemChaves(dados):
     return list(set(chaves))
 
 
-def obtemAutocomplete(expressao):
-    if expressao == "":
+def obtemAutocomplete(expressao_raw):
+    if expressao_raw == "":
         return ""
 
-    parsed = parseExpressao(expressao)
-    ultimo = traduzExpressao(parsed)[-1]
+    expressao = processaExpressao(expressao_raw)[0]
+    variavel = expressao[-1]
 
-    if not ehVariavel(ultimo):
+    if not ehVariavel(variavel):
         return ""
 
-    args = ultimo.split(":")
 
-    dados = dados_celulas
+    chaves = variavel.split(":")
+    chaves, prefix = chaves[:-1], chaves[-1]
 
-    for arg in args[:-1]:
-        if arg not in dados:
-            return ""
+    dados, failure_index = obtemDadoEspecifico(chaves)
+    while not any(opcao.startswith(prefix) for opcao in dados) and type(dados) is dict:
+        primeira_opcao = list(dados.keys())[0]
+        chaves = chaves[:failure_index] + [primeira_opcao] + chaves[failure_index:]
 
-        if type(dados[arg]) is not dict:
-            return ""
+        dados, failure_index = obtemDadoEspecifico(chaves)
 
-        dados = dados[arg]
-
-    prefix = args[-1]
     if prefix in dados and type(dados[prefix]) is dict:
-        return ":"
+        return ':'
 
     # Todas as possiveis strings para autocomplete
-    possiveis = ["ALL"]
-    possiveis += obtemChaves(dados)
+    possiveis = obtemChaves(dados)
 
     valid = []
-
     for k in possiveis:
         if k.startswith(prefix):
             valid.append(k[len(prefix):])
 
     if len(valid) == 0:
         return ""
-    elif len(valid) == 1:
-        return valid[0]
     else:
         return maiorPrefixoComum(valid)
 

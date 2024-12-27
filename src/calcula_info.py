@@ -1,6 +1,6 @@
 from numpy import nan
 
-from obtem_valor import obtemValor, obtemValorEspecifico, NUMERO_RELATORIOS
+from obtem_valor import obtemValor, obtemDadoEspecifico, NUMERO_RELATORIOS
 
 OPERADORES = ["+", "-", "*", "/", "(", ")"]
 
@@ -74,6 +74,19 @@ def calculaExpressao(expressao: list[str], relatorio: int) -> int | float:
     return eval(expressao_substituida)
 
 
+def calculaInfoExpressao(expressao: list[str]) -> list[int | float]:
+    relatorios = calculaRelatoriosValidos(expressao)
+
+    if len(relatorios) == 0:
+        raise ValueError("Não existem relatórios suficientes para satisfazer a expressão.")
+
+    info = [nan] * NUMERO_RELATORIOS
+    for relatorio in relatorios:
+        info[relatorio] = calculaExpressao(expressao, relatorio)
+
+    return info
+
+
 def parseExpressao(expressao_raw: str) -> list[str]:
     expressao = [expressao_raw.replace(" ", "")]
     for operador in OPERADORES:
@@ -108,7 +121,7 @@ def traduzExpressao(expressao: list[str]) -> list[str]:  # aliases
 
 def expandeALL(chaves: list[str]) -> list[str]:
     all_index = chaves.index("ALL")
-    valor, failure_index = obtemValorEspecifico(chaves)
+    valor, failure_index = obtemDadoEspecifico(chaves)
 
     if all_index == failure_index:
         return list(valor.keys())
@@ -190,25 +203,15 @@ def expandeExpressao(expressao: list[str]) -> list[list[str]]:
         return expressoes_expandidas
 
 
-def calculaInfoExpressao(expressao: list[str]) -> list[int | float]:
-    relatorios = calculaRelatoriosValidos(expressao)
-
-    if len(relatorios) == 0:
-        raise ValueError("Não existem relatórios suficientes para satisfazer a expressão.")
-
-    info = [nan] * NUMERO_RELATORIOS
-    for relatorio in relatorios:
-        info[relatorio] = calculaExpressao(expressao, relatorio)
-
-    return info
+def processaExpressao(expressao_raw: str) -> list[list[str]]:
+    expressao = parseExpressao(expressao_raw)
+    expressao = traduzExpressao(expressao)
+    return expandeExpressao(expressao)
 
 
 def calculaInfo(expressoes_raw: list[str]) -> list[tuple[str, list[int | float]]]:  # what a pretty return type ;)
-    expressoes = list(map(parseExpressao, expressoes_raw))
-    expressoes = list(map(traduzExpressao, expressoes))
+    expressoes = []
+    for expressao_raw in expressoes_raw:
+        expressoes += processaExpressao(expressao_raw)
 
-    expressoes_expandidas = []
-    for expressao in expressoes:
-        expressoes_expandidas += expandeExpressao(expressao)
-
-    return [(''.join(expressao), calculaInfoExpressao(expressao)) for expressao in expressoes_expandidas]
+    return [(''.join(expressao), calculaInfoExpressao(expressao)) for expressao in expressoes]

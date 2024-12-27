@@ -56,39 +56,40 @@ def obtemValorCelula(celula_raw: str, relatorio: int) -> int | float:
 
     try:
         sheet = RELATORIOS[relatorio].sheet_by_index(coordenada[0])
-        val = sheet.cell_value(coordenada[1], coordenada[2])
-        return val
+        valor = sheet.cell_value(coordenada[1], coordenada[2])
+        return valor
     except Exception:
         raise ValueError(f"A célula {celula_raw} não existe.")
 
 
-def obtemValorEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
-    valor = dados_celulas
+def obtemDadoEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
+    dados = dados_celulas
     failure_index = 0
+
     for chave in chaves:
-        if type(valor) is tuple:
+        if type(dados) is tuple:
             raise ValueError(f"variavel errada: {chave}.")
 
-        if chave in valor:
-            valor = valor[chave]
+        if chave in dados:
+            dados = dados[chave]
             failure_index += 1
         else:
             break
 
-    return valor, failure_index
+    return dados, failure_index
 
 
 def obtemValorAux(chaves: list[str], relatorio: int) -> int | float:
-    valor, failure_index = obtemValorEspecifico(chaves)
+    dado, failure_index = obtemDadoEspecifico(chaves)
 
-    if type(valor) is str:
+    if type(dado) is str:
         if failure_index == len(chaves):
-            return obtemValorCelula(valor, relatorio)
+            return obtemValorCelula(dado, relatorio)
         else:
             parte_mal_escrita = ":".join(chaves[failure_index:])
             raise ValueError(f"'{parte_mal_escrita}' está mal escrito.")
     else:
-        return sum( obtemValorAux( chaves[:failure_index] + [chave] + chaves[failure_index:], relatorio) for chave in valor)
+        return sum(obtemValorAux(chaves[:failure_index] + [chave] + chaves[failure_index:], relatorio) for chave in dado)
 
 
 def obtemValor(variavel: str, relatorio: int) -> int | float:
