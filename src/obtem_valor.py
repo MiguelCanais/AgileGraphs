@@ -7,19 +7,6 @@ from dados_celulas import dados_celulas
 RELATORIOS_DIRECTORY = "relatorios/"
 
 
-def loadRelatorios():
-    files = os.listdir(RELATORIOS_DIRECTORY)
-    xls_files = [file for file in files if file.endswith(".Xls")]
-
-    relatorios_loaded = []
-
-    for file in xls_files:
-        worbook = xlrd.open_workbook(RELATORIOS_DIRECTORY + file)
-        relatorios_loaded.append(worbook)
-
-    return sorted(relatorios_loaded, key=lambda x: obtemTrimestre(x))
-
-
 def obtemCoordenada(celula_raw):
     pattern = r"(\d)([A-Z]+)(\d+)"
     match = re.match(pattern, celula_raw)
@@ -40,6 +27,30 @@ def obtemCoordenada(celula_raw):
         return sheetNumero, linha, coluna
 
 
+def obtemTrimestre(relatorio):
+    coordenadaAno = obtemCoordenada("1T3")
+    coordenadaTrimestre = obtemCoordenada("1W3")
+    sheet = relatorio.sheet_by_index(0)
+
+    ano = int(sheet.cell_value(coordenadaAno[1], coordenadaAno[2]))
+    trimestre = int(sheet.cell_value(coordenadaTrimestre[1], coordenadaTrimestre[2]))
+
+    return (ano - 2010) * 4 + trimestre
+
+
+def loadRelatorios():
+    files = os.listdir(RELATORIOS_DIRECTORY)
+    xls_files = filter(lambda file: file.endswith(".Xls"), files)
+
+    relatorios_loaded = []
+
+    for file in xls_files:
+        worbook = xlrd.open_workbook(RELATORIOS_DIRECTORY + file)
+        relatorios_loaded.append(worbook)
+
+    return sorted(relatorios_loaded, key=obtemTrimestre)
+
+
 def obtemValorCelula(celula_raw: str, relatorio: int) -> int | float:
     coordenada = obtemCoordenada(celula_raw)
 
@@ -49,19 +60,6 @@ def obtemValorCelula(celula_raw: str, relatorio: int) -> int | float:
         return val
     except Exception:
         raise ValueError(f"A célula {celula_raw} não existe.")
-
-
-def obtemTrimestre(relatorio):
-    coordenadaAno = obtemCoordenada("1T3")
-    coordenadaTrimestre = obtemCoordenada("1W3")
-    sheet = relatorio.sheet_by_index(0)
-
-    ano = int(sheet.cell_value(coordenadaAno[1], coordenadaAno[2]))
-    trimestre = int(sheet.cell_value(coordenadaTrimestre[1], coordenadaTrimestre[2]))
-
-    v = (ano - 2010) * 4 + trimestre
-
-    return v
 
 
 def obtemValorEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:

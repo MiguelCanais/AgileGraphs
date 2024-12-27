@@ -7,7 +7,7 @@ from obtem_valor import NOME_RELATORIOS
 LINE_COLORS = ["blue", "red", "green", "orange", "purple", "cyan", "black"]
 
 
-def configuraGrafico(maximo, minimo) -> None:
+def configuraGrafico(maximo: int, minimo: int) -> None:
     amplitude = maximo - minimo
 
     upperlimit = maximo + amplitude * 0.2
@@ -20,7 +20,7 @@ def configuraGrafico(maximo, minimo) -> None:
     plt.grid()
 
 
-def criaGraficos(expressoes_raw: list[str], title: str = "Grafico") -> None:
+def criaGraficos(expressoes_raw: list[str]) -> None:
     plt.close()
 
     maximo = -(10**100)
@@ -42,7 +42,6 @@ def criaGraficos(expressoes_raw: list[str], title: str = "Grafico") -> None:
         )
 
     configuraGrafico(maximo, minimo)
-    plt.title(title)
 
-    plt.savefig(title + ".png")
+    plt.savefig("Grafico.png")
     plt.show()

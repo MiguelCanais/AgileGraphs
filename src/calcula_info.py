@@ -192,6 +192,7 @@ def expandeExpressao(expressao: list[str]) -> list[list[str]]:
 
 def calculaInfoExpressao(expressao: list[str]) -> list[int | float]:
     relatorios = calculaRelatoriosValidos(expressao)
+
     if len(relatorios) == 0:
         raise ValueError("Não existem relatórios suficientes para satisfazer a expressão.")
 
