@@ -434,10 +434,10 @@ Nada de assentos ou 'ç'.
 - trocar prodX por produtoX e criar aliases
 - bugs with autocomplete
 - bug with aliases and autocomplete
+- atualizar cli.py, prompt de input devia ser alterada
+- remove title parameter from criaGraficos
 
 
 ## TODO
-- atualizar cli.py, prompt de input devia ser alterada
-- remove title parameter from criaGraficos
 - por o mostraValores a funcionar
 - seleção de cores para os graficos ?
