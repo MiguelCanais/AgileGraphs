@@ -2,10 +2,37 @@ from prompt_toolkit import PromptSession
 from prompt_toolkit.key_binding import KeyBindings
 
 from calcula_info import parseExpressao, traduzExpressao, ehVariavel
-from dados_celulas import dados_relatorio
-from utils import maiorPrefixoComum
+from dados_celulas import dados_celulas
 
 kb = KeyBindings()
+
+
+def maiorPrefixoComum(strigs: list[str]) -> str:
+    """
+    Dado uma lista de strings encontra o maior prefixo comum a todas
+    as strings
+
+    Por exemplo:
+    strings = ["produto1", "produto2", "produto3"]
+    O maior prefixo comum é "produto"
+    """
+    if len(strigs) == 0:
+        return ""
+
+    i = 0
+    while True:
+        letra = 0
+        for s in strigs:
+            if len(s) == i:
+                return s
+
+            if letra == 0:
+                letra = s[i]
+            elif s[i] != letra:
+                return s[:i]
+
+        i += 1
+
 
 def obtemChaves(dados):
     chaves = list(dados.keys())
@@ -24,11 +51,12 @@ def obtemAutocomplete(expressao):
     parsed = parseExpressao(expressao)
     ultimo = traduzExpressao(parsed)[-1]
 
-    if not ehVariavel(ultimo): return ""
+    if not ehVariavel(ultimo):
+        return ""
 
     args = ultimo.split(":")
 
-    dados = dados_relatorio
+    dados = dados_celulas
 
     for arg in args[:-1]:
         if arg not in dados:

@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from numpy import nanmax, nanmin
+
 from calcula_info import calculaInfo
 from obtem_valor import NOME_RELATORIOS
 

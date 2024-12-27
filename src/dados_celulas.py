@@ -1,4 +1,4 @@
-dados_relatorio = {
+dados_celulas = {
     "pedidos": {
         "produto1": "1AA12",
         "produto2": "1AC12",
