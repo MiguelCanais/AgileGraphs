@@ -7,9 +7,10 @@ from dados_celulas import dados_celulas
 RELATORIOS_DIRECTORY = "relatorios/"
 
 
-def obtemCoordenada(celula_raw):
+def obtemCoordenadas(celula: str):
+    """ Determina as coordenadas de uma celula."""
     pattern = r"(\d)([A-Z]+)(\d+)"
-    match = re.match(pattern, celula_raw)
+    match = re.match(pattern, celula)
 
     if match:
         sheetNumero = int(match.group(1)) - 1
@@ -27,18 +28,27 @@ def obtemCoordenada(celula_raw):
         return sheetNumero, linha, coluna
 
 
-def obtemTrimestre(relatorio):
-    coordenadaAno = obtemCoordenada("1T3")
-    coordenadaTrimestre = obtemCoordenada("1W3")
-    sheet = relatorio.sheet_by_index(0)
+def obtemTrimestre(relatorio_workbook) -> int:
+    """
+    Recebe um workbook correspondente a um relatório e devolve o valor do seu trimestres.
+    O trimestre neste caso corresponde á ordem cronológica do relatório,
+    o primeiro tem trimestre 1, o 5º tem trimestre 5 ...
+    """
+    coordenadasAno = obtemCoordenadas("1T3")
+    coordenadasTrimestre = obtemCoordenadas("1W3")
+    sheet = relatorio_workbook.sheet_by_index(0)
 
-    ano = int(sheet.cell_value(coordenadaAno[1], coordenadaAno[2]))
-    trimestre = int(sheet.cell_value(coordenadaTrimestre[1], coordenadaTrimestre[2]))
+    ano = int(sheet.cell_value(coordenadasAno[1], coordenadasAno[2]))
+    trimestre = int(sheet.cell_value(coordenadasTrimestre[1], coordenadasTrimestre[2]))
 
     return (ano - 2010) * 4 + trimestre
 
 
-def loadRelatorios():
+def loadRelatorios() -> None:
+    """
+    Carrega todos os ficheiros `.Xls` presentes em `RELATORIOS_DIRECTORY` para a lista `RELATORIOS`.
+    Os relatorios ficam ordnados de acordo com o seu trimestre.
+    """
     files = os.listdir(RELATORIOS_DIRECTORY)
     xls_files = filter(lambda file: file.endswith(".Xls"), files)
 
@@ -51,18 +61,24 @@ def loadRelatorios():
     return sorted(relatorios_loaded, key=obtemTrimestre)
 
 
-def obtemValorCelula(celula_raw: str, relatorio: int) -> int | float:
-    coordenada = obtemCoordenada(celula_raw)
+def obtemValorCelula(celula: str, relatorio: int) -> int | float:
+    """ Obtem o valor númerico de uma dada celula. """
+    coordenadas = obtemCoordenadas(celula)
 
     try:
-        sheet = RELATORIOS[relatorio].sheet_by_index(coordenada[0])
-        valor = sheet.cell_value(coordenada[1], coordenada[2])
+        sheet = RELATORIOS[relatorio].sheet_by_index(coordenadas[0])
+        valor = sheet.cell_value(coordenadas[1], coordenadas[2])
         return valor
     except Exception:
-        raise ValueError(f"A célula {celula_raw} não existe.")
+        raise ValueError(f"A célula {celula} não existe.")
 
 
-def obtemDadoEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
+def obtemDados(chaves: list[str]) -> tuple[dict | tuple, int]:
+    """
+    Dadas as chaves de uma variavel vai utilizar as chaves para avaçar pelos elementos
+    de `dados_celulas` até não dar mais.
+    `failure_index` indica em que chave a pesquisa falhou.
+    """
     dados = dados_celulas
     failure_index = 0
 
@@ -80,20 +96,31 @@ def obtemDadoEspecifico(chaves: list[str]) -> tuple[dict | tuple, int]:
 
 
 def obtemValorAux(chaves: list[str], relatorio: int) -> int | float:
-    dado, failure_index = obtemDadoEspecifico(chaves)
+    """
+    Calcula o valor de uma variavel dadas as suas chaves relativamente a um dado relatorio.
+    Já não contêm prefixo de relatorio, então `relatorio` é mesmo o relatorio para o qual o valor vai ser calculado.
+    Funciona de forma recursiva de forma a lidar com chaves omitidas (faz a soma de todas as possibilidades).
+    """
+    dados, failure_index = obtemDados(chaves)
 
-    if type(dado) is str:
+    if type(dados) is str:
         if failure_index == len(chaves):
-            return obtemValorCelula(dado, relatorio)
+            return obtemValorCelula(dados, relatorio)
         else:
             parte_mal_escrita = ":".join(chaves[failure_index:])
             raise ValueError(f"'{parte_mal_escrita}' está mal escrito.")
     else:
-        return sum(obtemValorAux(chaves[:failure_index] + [chave] + chaves[failure_index:], relatorio) for chave in dado)
+        return sum(obtemValorAux(chaves[:failure_index] + [chave] + chaves[failure_index:], relatorio) for chave in dados)
 
 
 def obtemValor(variavel: str, relatorio: int) -> int | float:
-    if variavel.startswith(":"):  # acesso a outro relatorio
+    """
+    Recebe uma variavel e calcula o seu valor dado um relatório.
+    Não tem de necessariamente calcular o valor relativo ao relatório do argumento `relatorio`.
+    É recomendado ver a secção da documentação sobre a syntax de variaveis.
+    A variavel não deve conter aliases, ALL e ALLn.
+    """
+    if variavel.startswith(":"):  # prefixo de relatorio
         chaves = variavel.split(":")
         nova_variavel = ":".join(chaves[2:])
 

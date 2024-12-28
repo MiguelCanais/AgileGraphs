@@ -1,7 +1,7 @@
 from prompt_toolkit import PromptSession
 from prompt_toolkit.key_binding import KeyBindings
 
-from obtem_valor import obtemDadoEspecifico
+from obtem_valor import obtemDados
 from calcula_info import processaExpressao, ehVariavel
 
 kb = KeyBindings()
@@ -10,11 +10,11 @@ kb = KeyBindings()
 def maiorPrefixoComum(strigs: list[str]) -> str:
     """
     Dado uma lista de strings encontra o maior prefixo comum a todas
-    as strings
+    as strings.
 
     Por exemplo:
     strings = ["produto1", "produto2", "produto3"]
-    O maior prefixo comum é "produto"
+    O maior prefixo comum é "produto".
     """
     if len(strigs) == 0:
         return ""
@@ -34,7 +34,11 @@ def maiorPrefixoComum(strigs: list[str]) -> str:
         i += 1
 
 
-def obtemChaves(dados):
+def obtemChaves(dados: dict):
+    """
+    Dados um dicionario e devolve uma lista com todas as suas chaves
+    e as de qualquer dicionario que ele contenha.
+    """
     chaves = list(dados.keys())
 
     for v in dados.values():
@@ -44,7 +48,8 @@ def obtemChaves(dados):
     return list(set(chaves))
 
 
-def obtemAutocomplete(expressao_raw):
+def obtemAutocomplete(expressao_raw: str):
+    """ Recebe a expressao que o utilizador está a escrever e determina o autocomplete se existir."""
     if expressao_raw == "":
         return ""
 
@@ -54,16 +59,20 @@ def obtemAutocomplete(expressao_raw):
     if not ehVariavel(variavel):
         return ""
 
-
     chaves = variavel.split(":")
     chaves, prefix = chaves[:-1], chaves[-1]
 
-    dados, failure_index = obtemDadoEspecifico(chaves)
+    # obtem o dicionario que contêm uma chave começada por prefix
+    dados, failure_index = obtemDados(chaves)
     while not any(opcao.startswith(prefix) for opcao in dados) and type(dados) is dict:
         primeira_opcao = list(dados.keys())[0]
         chaves = chaves[:failure_index] + [primeira_opcao] + chaves[failure_index:]
 
-        dados, failure_index = obtemDadoEspecifico(chaves)
+        dados, failure_index = obtemDados(chaves)
+
+    # se a última chave está mal escrita em vez de devolver um dicionário vai devolver uma string, uma célula
+    if type(dados) is str:
+        return ""
 
     if prefix in dados and type(dados[prefix]) is dict:
         return ':'
@@ -93,6 +102,7 @@ session = PromptSession(key_bindings=kb)
 
 
 def obtemInputExpressao():
+    """ Obtem uma expressao utilizando uma prompt."""
     try:
         user_input = session.prompt("> ")
         return user_input

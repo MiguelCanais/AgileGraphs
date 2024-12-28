@@ -8,6 +8,7 @@ LINE_COLORS = ["blue", "red", "green", "orange", "purple", "cyan", "black"]
 
 
 def configuraGrafico(maximo: int, minimo: int) -> None:
+    """ Ajusta o minímo e máximo do gráfico de forma a melhor visualizar os gráficos."""
     amplitude = maximo - minimo
 
     upperlimit = maximo + amplitude * 0.2
@@ -21,6 +22,10 @@ def configuraGrafico(maximo: int, minimo: int) -> None:
 
 
 def criaGraficos(expressoes_raw: list[str]) -> None:
+    """
+    Recebe expressoes raw do utilizador e mostra gráficos dos seus valores para todos os relatorios validos.
+    Guarda o gráfico gerado no ficheiro `grafico.png`.
+    """
     plt.close()
 
     maximo = -(10**100)
@@ -30,6 +35,7 @@ def criaGraficos(expressoes_raw: list[str]) -> None:
     for i in range(len(info_graphs)):
         expressao, info = info_graphs[i]
 
+        # como info pode conter nan não se pode utilizar o max e min normal
         maximo = max(nanmax(info), maximo)
         minimo = min(nanmin(info), minimo)
 
@@ -43,5 +49,5 @@ def criaGraficos(expressoes_raw: list[str]) -> None:
 
     configuraGrafico(maximo, minimo)
 
-    plt.savefig("Grafico.png")
+    plt.savefig("grafico.png")
     plt.show()

@@ -361,6 +361,8 @@ vendas:prod3:ue = 417
 ## Mostra valores
 
 Este modo ainda está a ser desenvolvido, atualmente não faz nada.
+A ideia é mostra os valores de uma expressão numa tabela.
+É equivalente a substituir cada chave omitida por um ALL.
 
 
 ## DEV
@@ -378,11 +380,16 @@ Uma string que representa uma expressão introduzida pelo utilizador.
 
 #### expressao
 
-Lista de strings, onde cada string é um operador ou uma variável.
+Lista de strings, onde cada string é um termo.
 Todos os aliases já foram substituídos.
 Todos os ALL e ALLn já forma substituídos
 
 `['vendas:produto1', '-', ':~1:entregas:produto2']`
+
+#### termo
+
+Uma string, expressoes são constituidas por termo.
+Podemo ser variaveis, números ou operadores.
 
 #### variável
 
@@ -398,16 +405,55 @@ Uma lista de strings, onde cada string é uma chave da variável.
 
 Na maioria do programa as chaves '' e '~1' são removidas, então seria só `['entregas', 'produto2']`.
 
+#### celula
+
+Uma string que corresponde a uma célula de um documento de Exel.
+Exemplos: `1AA12`, `1T3`, `2U12`.
+O primeiro número indica o número da folha, o resto é a notação normal do Exel.
+
+#### coordenadas
+
+Utilizado para acedar facilmente ao valor de uma celula.
+Consiste num tuplo onde:
+    - 1º elemento é o número da folha de uma celula, 1 ou 2.
+    - 2º elemento é o número da linha da celula zero based index.
+    - 3º elemento é o número da coluna da celula one based index.
+
+#### valor
+
+É um inteiro ou float que corresponde ao valor de uma variavel.
+É importante lembrar que não corresponde necessáriamente ao valor de uma celula, pode ser uma soma,
+como no caso de `vendas:produto1`.
+
 #### relatorio
 
 É um número inteiro que indica o número do relatório para o qual a expressão vai ser calculada.
 Começam em 0.
+
+#### dados
+
+São elementos do dicionário `dados_celulas`.
+Pode ser um dicionário, como:
+```
+"pedidos": {
+    "produto1": "1AA12",
+    "produto2": "1AC12",
+    "produto3": "1AE12",
+},
+```
+
+Ou uma string que correopnde a uma celula.
 
 
 ### Nomes
 
 Usa Pascal case. Por exemplo, calculaInfoExpressao.
 Nada de assentos ou 'ç'.
+
+
+## Prompt features
+
+Quando se está a dar expressões como input podes utilizar TAB para autocomplete e as setas para navegar pelo histórico.
 
 
 ## Feito

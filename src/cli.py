@@ -6,6 +6,12 @@ from prompt import obtemInputExpressao
 
 
 def criaGraficosPrompt():
+    """
+    Aceita várias expressões do utilizador.
+    Quando tentar voltar para o menu original ele irá mostrar um gráfico com os valores das expressões introduzidas
+    para cada relatório para o qual as expressões sejam validas.
+    Caso nenhuma expressão seja introduzida irá imediatamente voltar para o menu inicial.
+    """
     while True:
         print("\nInsira expressões para gráficos (q para parar):")
         expressoes = []
@@ -26,6 +32,7 @@ def criaGraficosPrompt():
 
 
 def calculaValoresPrompt():
+    """ Escreve o valor numérico da expressão dada em relação ao último relatório para o qual a expressão é válida."""
     ans = 0
 
     print("\nInsira expressão para calcular (q para sair):")
@@ -51,7 +58,11 @@ def calculaValoresPrompt():
 
 def mostraValoresPrompt():
     """
-    Calulca expressao:
+    Mostra os valores numa tabela.
+    É equivalente a substituir cada chave omitida por um ALL.
+
+    Alguns exemplos:
+
     > vendas
 
              Prod1 Prod2 Prod3
@@ -100,6 +111,11 @@ OPCOES = {
 
 
 def prompt():
+    """
+    A função principal do programa.
+    Gera um menu interativo onde se escolhe o modo a utilizar.
+    Depois chama a função correspondente ao modo selecionado.
+    """
     while True:
         system("clear")
         print("\n------ AgileGraphs ------\n")
